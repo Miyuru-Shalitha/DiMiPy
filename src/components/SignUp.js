@@ -4,8 +4,10 @@ import styled from "styled-components";
 import RadioButtonsGroup from "./material-components/RadioButtonsGroup";
 import SimpleMenu from "./material-components/SimpleMenu";
 
-const THEORY = "theory";
-const REVISION = "revision";
+const THEORY = "Theory";
+const REVISION = "Revision";
+const YEAR = "Select Year";
+const SELECTGROUP = "Select Group";
 
 function SignUp() {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
@@ -20,21 +22,41 @@ function SignUp() {
   const showRadioButtons = () => {
     if (selectedCategory === THEORY) {
       return (
-        <RadioButtonsGroup
-          radioItems={{
-            itemTitles: ["2021", "2022", "2023"],
-            func: handleSelectedYear,
-          }}
-        />
+        <RadioGroupContainer>
+          <RadioButtonsGroup
+            labelName={YEAR}
+            radioItems={{
+              itemTitles: ["2021", "2022", "2023"],
+              func: handleSelectedYear,
+            }}
+          />
+          <RadioButtonsGroup
+            labelName={SELECTGROUP}
+            radioItems={{
+              itemTitles: ["All Islend", "Kurunegala", "Kandy"],
+              func: handleSelectedYear,
+            }}
+          />
+        </RadioGroupContainer>
       );
     } else if (selectedCategory === REVISION) {
       return (
-        <RadioButtonsGroup
-          radioItems={{
-            itemTitles: ["2021"],
-            func: handleSelectedYear,
-          }}
-        />
+        <RadioGroupContainer>
+          <RadioButtonsGroup
+            labelName={YEAR}
+            radioItems={{
+              itemTitles: ["2021"],
+              func: handleSelectedYear,
+            }}
+          />
+          <RadioButtonsGroup
+            labelName={SELECTGROUP}
+            radioItems={{
+              itemTitles: ["All Islend", "Kurunegala", "Kandy"],
+              func: handleSelectedYear,
+            }}
+          />
+        </RadioGroupContainer>
       );
     } else {
       return;
@@ -83,4 +105,9 @@ const SignUpForm = styled.form`
   border: 1px solid #999;
   border-radius: 0.2rem;
   box-shadow: 1px 1px 15px 1px #999;
+`;
+
+const RadioGroupContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
 `;
