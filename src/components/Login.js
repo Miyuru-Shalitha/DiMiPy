@@ -1,8 +1,19 @@
 import { Button, TextField } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { auth } from "../firebase";
 
 function Login() {
+  const history = useHistory("");
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      history.push("/classroom");
+    }
+  }, [auth.currentUser]);
+
   return (
     <LoginContainer>
       <LoginForm action="">
@@ -11,6 +22,8 @@ function Login() {
         <Button variant="contained" color="primary">
           Login
         </Button>
+
+        <Link to="/sign-up">Sign Up</Link>
       </LoginForm>
     </LoginContainer>
   );

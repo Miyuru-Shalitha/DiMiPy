@@ -1,9 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import RadioButtonsGroup from "./material-components/RadioButtonsGroup";
 import SimpleMenu from "./material-components/SimpleMenu";
+import firebase from "firebase";
+import { useHistory } from "react-router";
 
 const THEORY = "Theory";
 const REVISION = "Revision";
@@ -26,6 +28,8 @@ function SignUp() {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [selectedYear, setSelectedYear] = React.useState(null);
   const [selectedGroup, setSelectedGroup] = React.useState(null);
+
+  const history = useHistory("");
 
   ////////////////////////////////////////////////////////////////////////////
 
@@ -58,8 +62,26 @@ function SignUp() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-  };
 
+    auth
+      .createUserWithEmailAndPassword("paradox@email.com", "paradoxPassword")
+      .then((authUser) =>
+        authUser.user
+          .updateProfile({
+            displayName: "paradox",
+          })
+          .then(
+            db.collection("users").doc(auth.currentUser?.uid).set({
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              userId: auth.currentUser?.uid,
+              username: "paradox",
+            }),
+            history.push("/classroom")
+          )
+          .catch((err) => alert(err.message))
+      )
+      .catch((err) => alert(err.message));
+  };
   ////////////////////////////////////////////////////////////////////////////
 
   const showRadioButtons = () => {
