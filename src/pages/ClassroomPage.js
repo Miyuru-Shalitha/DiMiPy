@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ChatSection from "../components/ChatSection";
 import LogoutButton from "../components/LogoutButton";
 import TitleBar from "../components/TitleBar";
 import VideoPlayer from "../components/VideoPlayer";
+import { getClass2021TKu } from "../dbFunctions/getClassroomData";
+import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
 
 function ClassroomPage() {
+  useEffect(() => {
+    getClass2021TKu();
+    getUserClassroomData("6aOYAyz5v2V6IjjN4CsdXLu77Qn1");
+  }, []);
+
   return (
     <Container>
       <TitleBar />
