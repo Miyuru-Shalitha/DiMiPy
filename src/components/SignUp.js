@@ -79,7 +79,10 @@ function SignUp() {
             db.collection("users").doc(auth.currentUser?.uid).set({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               userId: auth.currentUser?.uid,
-              username: auth.currentUser?.displayName,
+              username: userDetails.username,
+              email: userDetails.email,
+              profileAvatar:
+                "https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c",
             }),
             history.push(AUTHORIZATION_ROUTE)
           )

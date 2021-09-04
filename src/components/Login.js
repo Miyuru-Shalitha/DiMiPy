@@ -33,10 +33,14 @@ function Login() {
   const handleSignIn = (e) => {
     e.preventDefault();
 
-    auth.signInWithEmailAndPassword(
-      userLoginDetails.email,
-      userLoginDetails.password
-    );
+    auth
+      .signInWithEmailAndPassword(
+        userLoginDetails.email,
+        userLoginDetails.password
+      )
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (

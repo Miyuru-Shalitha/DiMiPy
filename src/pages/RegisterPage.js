@@ -1,11 +1,11 @@
-import React from "react";
-import Login from "../components/Login";
-import SignUp from "../components/SignUp";
+// import React from "react";
+// import Login from "../components/Login";
+// import SignUp from "../components/SignUp";
 
-function RegisterPage() {
-  const [isSignedUp, setIsSignedUp] = React.useState(false);
+// function RegisterPage() {
+//   const [isSignedUp, setIsSignedUp] = React.useState(false);
 
-  return isSignedUp ? <Login /> : <SignUp />;
-}
+//   return isSignedUp ? <Login /> : <SignUp />;
+// }
 
-export default RegisterPage;
+// export default RegisterPage;
