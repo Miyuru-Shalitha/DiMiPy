@@ -1,29 +1,68 @@
 import { Button, TextField } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
+import { AUTHORIZATION_ROUTE, SIGN_UP_ROUTE } from "../constants/routes";
+
 function Login() {
   const history = useHistory("");
 
+  const [userLoginDetails, setUserLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
+
   useEffect(() => {
     if (auth.currentUser) {
-      history.push("/classroom");
+      history.push(AUTHORIZATION_ROUTE);
     }
   }, [auth.currentUser]);
 
+  const handleUserLoginDetails = (e) => {
+    const { name, value } = e.target;
+
+    setUserLoginDetails((prevValue) => ({
+      ...prevValue,
+      [name]: value,
+    }));
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+
+    auth.signInWithEmailAndPassword(
+      userLoginDetails.email,
+      userLoginDetails.password
+    );
+  };
+
   return (
     <LoginContainer>
-      <LoginForm action="">
-        <TextField type="text" label="Username" variant="outlined" />
-        <TextField type="password" label="Password" variant="outlined" />
-        <Button variant="contained" color="primary">
+      <LoginForm onSubmit={handleSignIn}>
+        <TextField
+          type="email"
+          label="Email"
+          variant="outlined"
+          onChange={handleUserLoginDetails}
+          value={userLoginDetails.email}
+          name="email"
+        />
+        <TextField
+          type="password"
+          label="Password"
+          variant="outlined"
+          onChange={handleUserLoginDetails}
+          value={userLoginDetails.password}
+          name="password"
+        />
+        <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
 
-        <Link to="/sign-up">Sign Up</Link>
+        <Link to={SIGN_UP_ROUTE}>Sign Up</Link>
       </LoginForm>
     </LoginContainer>
   );

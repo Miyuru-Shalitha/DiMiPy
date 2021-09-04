@@ -7,6 +7,8 @@ import SimpleMenu from "./material-components/SimpleMenu";
 import firebase from "firebase";
 import { useHistory } from "react-router";
 
+import { AUTHORIZATION_ROUTE } from "../constants/routes";
+
 const THEORY = "Theory";
 const REVISION = "Revision";
 const YEAR = "Select Year";
@@ -23,6 +25,8 @@ function SignUp() {
     email: "",
     address: "",
     phone: "",
+    username: "",
+    password: "",
   });
 
   const [selectedCategory, setSelectedCategory] = React.useState(null);
@@ -64,19 +68,20 @@ function SignUp() {
     e.preventDefault();
 
     auth
-      .createUserWithEmailAndPassword("paradox@email.com", "paradoxPassword")
+      .createUserWithEmailAndPassword(userDetails.email, userDetails.password)
       .then((authUser) =>
         authUser.user
           .updateProfile({
-            displayName: "paradox",
+            displayName: userDetails.username,
+            password: userDetails.password,
           })
           .then(
             db.collection("users").doc(auth.currentUser?.uid).set({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               userId: auth.currentUser?.uid,
-              username: "paradox",
+              username: auth.currentUser?.displayName,
             }),
-            history.push("/classroom")
+            history.push(AUTHORIZATION_ROUTE)
           )
           .catch((err) => alert(err.message))
       )
@@ -133,7 +138,7 @@ function SignUp() {
       <SignUpForm onSubmit={handleSignUp}>
         <TextField
           type="text"
-          label="Name"
+          label="Name: Eg: A.B.Lahiru Ekanayaka"
           variant="outlined"
           onChange={handleUserDetails}
           value={userDetails.name}
@@ -175,6 +180,24 @@ function SignUp() {
           }}
         />
         {showRadioButtons()}
+        <TextField
+          type="text"
+          label="Username"
+          variant="outlined"
+          onChange={handleUserDetails}
+          value={userDetails.username}
+          name="username"
+          required
+        />
+        <TextField
+          type="password"
+          label="Password"
+          variant="outlined"
+          onChange={handleUserDetails}
+          value={userDetails.password}
+          name="password"
+          required
+        />
         <Button type="submit" variant="contained" color="primary">
           Sign Up
         </Button>

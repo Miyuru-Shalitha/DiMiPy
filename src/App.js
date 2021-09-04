@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useHistory } from "react-router";
+import Authorize from "./components/Authorize";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import {
+  AUTHORIZATION_ROUTE,
+  CLASSROOM_ROUTE,
+  ROOT_ROUTE,
+  SIGN_UP_ROUTE,
+} from "./constants/routes";
 import { auth } from "./firebase";
 import ClassroomPage from "./pages/ClassroomPage";
 
@@ -23,15 +31,19 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={ROOT_ROUTE}>
           <Login />
         </Route>
 
-        <Route path="/sign-up">
+        <Route path={SIGN_UP_ROUTE}>
           <SignUp />
         </Route>
 
-        <Route path="/classroom">
+        <Route path={AUTHORIZATION_ROUTE}>
+          <Authorize />
+        </Route>
+
+        <Route path={CLASSROOM_ROUTE}>
           <ClassroomPage />
         </Route>
       </Switch>

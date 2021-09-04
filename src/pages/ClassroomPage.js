@@ -1,16 +1,11 @@
 import React from "react";
-import { auth } from "../firebase";
+import LogoutButton from "../components/LogoutButton";
 
 function ClassroomPage() {
   return (
     <div>
-      <button
-        onClick={() => {
-          auth.signOut();
-        }}
-      >
-        Log Out
-      </button>
+      <h1>Classroom</h1>
+      <LogoutButton />
     </div>
   );
 }
