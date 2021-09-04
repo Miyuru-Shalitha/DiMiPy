@@ -79,8 +79,14 @@ function SignUp() {
             db.collection("users").doc(auth.currentUser?.uid).set({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               userId: auth.currentUser?.uid,
-              username: userDetails.username,
+              name: userDetails.name,
               email: userDetails.email,
+              address: userDetails.address,
+              phone: userDetails.phone,
+              username: userDetails.username,
+              selectedCategory: selectedCategory,
+              selectedYear: selectedYear,
+              selectedGroup: selectedGroup,
               profileAvatar:
                 "https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c",
             }),

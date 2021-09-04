@@ -23,7 +23,6 @@ function TitleBar() {
 export default TitleBar;
 
 const Container = styled.div`
-  height: 10vh;
   background-color: #66b3ff;
   display: flex;
   justify-content: center;
