@@ -1,17 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ChatSection from "../components/ChatSection";
 import LogoutButton from "../components/LogoutButton";
 import TitleBar from "../components/TitleBar";
 import VideoPlayer from "../components/VideoPlayer";
-import { getClass2021TKu } from "../dbFunctions/getClassroomData";
+import { setClassroomData } from "../dbFunctions/setClassroomData";
 import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
+import { auth } from "../firebase";
 
 function ClassroomPage() {
+  const [classData, setClassData] = useState({
+    year: "",
+    category: "",
+    group: "",
+  });
+  const [lessonId, setLessonId] = useState("");
+
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     getUserClassroomData(auth.currentUser.uid)
+  //       .then((userClassData) => {
+  //         setClassData({
+  //           year: userClassData.year,
+  //           category: userClassData.category,
+  //           group: userClassData.group,
+  //         });
+
+  //         getClassroomData(userClassData.classCode)
+  //           .then((classData) => {
+  //             setLessonId(classData.lessonId);
+  //           })
+  //           .catch((err) => {
+  //             alert(err.message);
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         alert(err.message);
+  //       });
+  //   }
+  // }, [auth.currentUser]);
+
   useEffect(() => {
-    getClass2021TKu();
-    getUserClassroomData("6aOYAyz5v2V6IjjN4CsdXLu77Qn1");
-  }, []);
+    if (auth.currentUser) {
+      getUserClassroomData(auth.currentUser.uid)
+        .then((userClassData) => {
+          setClassData({
+            year: userClassData.year,
+            category: userClassData.category,
+            group: userClassData.group,
+          });
+
+          setClassroomData(userClassData.classCode, setLessonId);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+  }, [auth.currentUser]);
 
   return (
     <Container>
@@ -20,6 +65,10 @@ function ClassroomPage() {
       <BodyContainer>
         <VideoPlayerContainer>
           <VideoPlayer />
+          <h1>{lessonId}</h1>
+          <h6 style={{ textAlign: "center" }}>
+            {classData.year} {classData.category} {classData.group}
+          </h6>
         </VideoPlayerContainer>
 
         <ChatSectionContainer>

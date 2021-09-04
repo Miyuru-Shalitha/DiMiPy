@@ -15,9 +15,9 @@ const YEAR = "Select Year";
 const SELECTGROUP = "Select Group";
 
 const DEFAULT_THEORY_YEAR = "2021";
-const DEFAULT_THEORY_GROUP = "All Islend";
+const DEFAULT_THEORY_GROUP = "All Island";
 const DEFAULT_REVISION_YEAR = "2021";
-const DEFAULT_REVISION_GROUP = "All Islend";
+const DEFAULT_REVISION_GROUP = "All Island";
 
 function SignUp() {
   const [userDetails, setUserDetails] = React.useState({
