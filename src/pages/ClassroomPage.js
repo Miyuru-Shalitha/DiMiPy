@@ -13,6 +13,7 @@ function ClassroomPage() {
     year: "",
     category: "",
     group: "",
+    classCode: "",
   });
   const [lessonId, setLessonId] = useState("");
 
@@ -48,6 +49,7 @@ function ClassroomPage() {
             year: userClassData.year,
             category: userClassData.category,
             group: userClassData.group,
+            classCode: userClassData.classCode,
           });
 
           setClassroomData(userClassData.classCode, setLessonId);
@@ -72,11 +74,11 @@ function ClassroomPage() {
         </VideoPlayerContainer>
 
         <ChatSectionContainer>
-          <ChatSection />
+          <ChatSection classData={classData} />
         </ChatSectionContainer>
       </BodyContainer>
 
-      <LogoutButton />
+      {/* <LogoutButton /> */}
     </Container>
   );
 }

@@ -31,7 +31,6 @@ import { db } from "../firebase";
 
 function setClassroomData(classId, setLessonId) {
   const classRef = db.collection(CLASSES).doc(classId);
-  console.log(classId);
 
   classRef.onSnapshot((docSnapshot) => {
     if (docSnapshot.exists) {
