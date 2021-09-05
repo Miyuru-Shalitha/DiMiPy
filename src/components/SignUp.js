@@ -8,6 +8,7 @@ import firebase from "firebase";
 import { useHistory } from "react-router";
 
 import { AUTHORIZATION_ROUTE } from "../constants/routes";
+import createUser from "../dbFunctions/createUser";
 
 const THEORY = "Theory";
 const REVISION = "Revision";
@@ -67,33 +68,21 @@ function SignUp() {
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    auth
-      .createUserWithEmailAndPassword(userDetails.email, userDetails.password)
-      .then((authUser) =>
-        authUser.user
-          .updateProfile({
-            displayName: userDetails.username,
-            password: userDetails.password,
-          })
-          .then(
-            db.collection("users").doc(auth.currentUser?.uid).set({
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              userId: auth.currentUser?.uid,
-              name: userDetails.name,
-              email: userDetails.email,
-              address: userDetails.address,
-              phone: userDetails.phone,
-              username: userDetails.username,
-              selectedCategory: selectedCategory,
-              selectedYear: selectedYear,
-              selectedGroup: selectedGroup,
-              profileAvatar:
-                "https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c",
-            }),
-            history.push(AUTHORIZATION_ROUTE)
-          )
-          .catch((err) => alert(err.message))
-      )
+    createUser(
+      userDetails.username,
+      userDetails.password,
+      userDetails.email,
+      userDetails.name,
+      userDetails.address,
+      userDetails.phone,
+      selectedCategory,
+      selectedYear,
+      selectedGroup,
+      "https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+    )
+      .then(() => {
+        history.push(AUTHORIZATION_ROUTE);
+      })
       .catch((err) => alert(err.message));
   };
   ////////////////////////////////////////////////////////////////////////////

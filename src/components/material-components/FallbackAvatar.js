@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FallbackAvatar({
   username,
-  profilePhoto,
+  profilePhotoURL,
   size,
   style,
 }) {
@@ -39,7 +39,7 @@ export default function FallbackAvatar({
       </Avatar> */}
       <Avatar
         alt={username}
-        src={profilePhoto}
+        src={profilePhotoURL}
         className={(classes.orange, size === "small" ? classes.small : null)}
       />
       {/* <Avatar src="/broken-image.jpg" /> */}

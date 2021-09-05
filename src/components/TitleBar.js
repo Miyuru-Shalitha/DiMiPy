@@ -14,7 +14,7 @@ function TitleBar() {
 
       <FallbackAvatar
         username={auth?.currentUser?.displayName}
-        profilePhoto="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+        profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
       />
     </Container>
   );

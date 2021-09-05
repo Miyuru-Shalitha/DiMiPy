@@ -1,7 +1,13 @@
 /////////////// Collections.///////////////
 const USERS = "users";
+const USERS_PUBLIC_DATA = "usersPublicData";
 const CLASSES = "classes"; // THIS COLLECTION MUST BE CREATED MANUALLY.
+const CHATS = "chats";
 ///////////////////////////////////////////
+
+/////////////// Sub Collections.///////////////
+const CHAT = "chat";
+///////////////////////////////////////////////
 
 /////////////// Documents./////////////////
 // Kurunegala Theory.
@@ -31,7 +37,10 @@ const CLASS2021RAI = "class2021RAI";
 
 export {
   USERS,
+  USERS_PUBLIC_DATA,
   CLASSES,
+  CHATS,
+  CHAT,
   CLASS2021TKu,
   CLASS2022TKu,
   CLASS2023TKu,

@@ -1,41 +1,35 @@
 import Divider from "@material-ui/core/Divider";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { db, auth } from "../firebase";
 import ChatBox from "./ChatBox";
-import firebase from "firebase";
+import sendPublicMessage from "../dbFunctions/sendPublicMessage";
+import getPublicMessages from "../dbFunctions/getPublicMessages";
 
 function ChatSection({ classData }) {
   const [message, setMessage] = useState("");
+  const [chat, setChat] = useState("");
+
+  useEffect(() => {
+    if (classData.classCode !== "") {
+      const unsubscribe = getPublicMessages(classData.classCode, setChat);
+
+      return unsubscribe;
+    }
+  }, [classData]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
 
-    // Extract this code to sendMessage.js
-    db.collection("chats")
-      .doc(classData.classCode)
-      .collection("chat")
-      .add({
-        userId: auth.currentUser.uid,
-        message: message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        setMessage("");
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    sendPublicMessage(classData.classCode, message, setMessage);
   };
 
   return (
     <Container>
       <ChatContainer>
-        <ChatBox />
-        <ChatBox />
-        <ChatBox />
-        <ChatBox />
-        <ChatBox />
+        {chat &&
+          chat.map(({ chatId, chat }) => (
+            <ChatBox key={chatId} chatData={chat} />
+          ))}
       </ChatContainer>
 
       <Divider />

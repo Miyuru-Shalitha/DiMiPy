@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import getUserDataFromUserId from "../dbFunctions/getUserDataFromUserId";
+import { auth, db } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
-function ChatBox() {
+function ChatBox({ chatData }) {
+  const [chatUserData, setChatUserData] = useState({
+    username: "",
+    profilePhoto: "",
+  });
+
+  useEffect(() => {
+    getUserDataFromUserId(chatData.userId)
+      .then((userData) => {
+        console.log(userData);
+      })
+      .catch((err) => alert(err.message));
+  }, []);
+
   return (
     <Container>
       <FallbackAvatarContainer>
         <FallbackAvatar
           size="small"
           username="Hello, world!"
-          profilePhoto="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+          profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
         />
       </FallbackAvatarContainer>
 
-      <ChatText>Hello, world!</ChatText>
+      <ChatText>{chatData.message}</ChatText>
     </Container>
   );
 }
