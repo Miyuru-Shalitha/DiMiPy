@@ -1,9 +1,9 @@
-import { USERS } from "../constants/dbConsts";
+import { USERS_PUBLIC_DATA } from "../constants/dbConsts";
 import { db } from "../firebase";
 
 function getUserDataFromUserId(userId) {
   return db
-    .collection("users")
+    .collection(USERS_PUBLIC_DATA)
     .doc(userId)
     .get()
     .then((doc) => doc.data())

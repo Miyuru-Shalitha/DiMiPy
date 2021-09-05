@@ -37,7 +37,7 @@ function createUser(
               selectedCategory: selectedCategory,
               selectedYear: selectedYear,
               selectedGroup: selectedGroup,
-              profileAvatar: profileAvatarURL,
+              profileAvatarURL: profileAvatarURL,
             })
             .then(() => {
               db.collection(USERS_PUBLIC_DATA)
@@ -49,7 +49,7 @@ function createUser(
                   selectedCategory: selectedCategory,
                   selectedYear: selectedYear,
                   selectedGroup: selectedGroup,
-                  profileAvatar: profileAvatarURL,
+                  profileAvatarURL: profileAvatarURL,
                 })
                 .catch((err) => alert(err.message));
             })

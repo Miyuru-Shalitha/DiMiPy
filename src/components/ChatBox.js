@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import getUserDataFromUserId from "../dbFunctions/getUserDataFromUserId";
-import { auth, db } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
 function ChatBox({ chatData }) {
@@ -13,7 +12,8 @@ function ChatBox({ chatData }) {
   useEffect(() => {
     getUserDataFromUserId(chatData.userId)
       .then((userData) => {
-        console.log(userData);
+        // console.log(userData);
+        setChatUserData(userData);
       })
       .catch((err) => alert(err.message));
   }, []);
@@ -23,7 +23,7 @@ function ChatBox({ chatData }) {
       <FallbackAvatarContainer>
         <FallbackAvatar
           size="small"
-          username="Hello, world!"
+          username={chatUserData.username}
           profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
         />
       </FallbackAvatarContainer>

@@ -68,6 +68,24 @@ function SignUp() {
   const handleSignUp = (e) => {
     e.preventDefault();
 
+    if (
+      userDetails.name === "" ||
+      userDetails.email === "" ||
+      userDetails.address === "" ||
+      userDetails.phone === "" ||
+      userDetails.password === ""
+    ) {
+      alert("Please enter all the details!");
+      return;
+    } else if (
+      selectedCategory === null ||
+      selectedYear === null ||
+      selectedGroup === null
+    ) {
+      alert("Please select the category!");
+      return;
+    }
+
     createUser(
       userDetails.username,
       userDetails.password,

@@ -92,6 +92,10 @@ const Container = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   height: 100%;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const VideoPlayerContainer = styled.div`
