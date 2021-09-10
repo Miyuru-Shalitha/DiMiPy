@@ -32,17 +32,19 @@ function ChatSection({ classData }) {
           ))}
       </ChatContainer>
 
-      <Divider />
+      <SendMessageContainer>
+        <Divider />
 
-      <SendMessageForm onSubmit={handleSendMessage}>
-        <MessageInput
-          placeholder="Send a message"
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-          value={message}
-        />
-      </SendMessageForm>
+        <SendMessageForm onSubmit={handleSendMessage}>
+          <MessageInput
+            placeholder="Send a message"
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+            value={message}
+          />
+        </SendMessageForm>
+      </SendMessageContainer>
     </Container>
   );
 }
@@ -57,6 +59,26 @@ const Container = styled.div`
 
 const ChatContainer = styled.div`
   height: 80%;
+  overflow-y: scroll;
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+`;
+
+const SendMessageContainer = styled.div`
+  @media (max-width: 600px) {
+    flex-direction: column;
+    position: fixed;
+    width: 88vw;
+    bottom: 0;
+  }
 `;
 
 const SendMessageForm = styled.form`

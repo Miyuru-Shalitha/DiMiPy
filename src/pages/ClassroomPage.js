@@ -67,7 +67,7 @@ function ClassroomPage() {
       <BodyContainer>
         <VideoPlayerContainer>
           <VideoPlayer />
-          <h1>{lessonId}</h1>
+          {/* <h1>{lessonId}</h1> */}
           <h6 style={{ textAlign: "center" }}>
             {classData.year} {classData.category} {classData.group}
           </h6>
