@@ -9,99 +9,99 @@ import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
 import { auth } from "../firebase";
 
 function ClassroomPage() {
-  const [classData, setClassData] = useState({
-    year: "",
-    category: "",
-    group: "",
-    classCode: "",
-  });
-  const [lessonId, setLessonId] = useState("");
+    const [classData, setClassData] = useState({
+        year: "",
+        category: "",
+        group: "",
+        classCode: "",
+    });
+    const [lessonId, setLessonId] = useState("");
 
-  // useEffect(() => {
-  //   if (auth.currentUser) {
-  //     getUserClassroomData(auth.currentUser.uid)
-  //       .then((userClassData) => {
-  //         setClassData({
-  //           year: userClassData.year,
-  //           category: userClassData.category,
-  //           group: userClassData.group,
-  //         });
+    // useEffect(() => {
+    //   if (auth.currentUser) {
+    //     getUserClassroomData(auth.currentUser.uid)
+    //       .then((userClassData) => {
+    //         setClassData({
+    //           year: userClassData.year,
+    //           category: userClassData.category,
+    //           group: userClassData.group,
+    //         });
 
-  //         getClassroomData(userClassData.classCode)
-  //           .then((classData) => {
-  //             setLessonId(classData.lessonId);
-  //           })
-  //           .catch((err) => {
-  //             alert(err.message);
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         alert(err.message);
-  //       });
-  //   }
-  // }, [auth.currentUser]);
+    //         getClassroomData(userClassData.classCode)
+    //           .then((classData) => {
+    //             setLessonId(classData.lessonId);
+    //           })
+    //           .catch((err) => {
+    //             alert(err.message);
+    //           });
+    //       })
+    //       .catch((err) => {
+    //         alert(err.message);
+    //       });
+    //   }
+    // }, [auth.currentUser]);
 
-  useEffect(() => {
-    if (auth.currentUser) {
-      getUserClassroomData(auth.currentUser.uid)
-        .then((userClassData) => {
-          setClassData({
-            year: userClassData.year,
-            category: userClassData.category,
-            group: userClassData.group,
-            classCode: userClassData.classCode,
-          });
+    useEffect(() => {
+        if (auth.currentUser) {
+            getUserClassroomData(auth.currentUser.uid)
+                .then((userClassData) => {
+                    setClassData({
+                        year: userClassData.year,
+                        category: userClassData.category,
+                        group: userClassData.group,
+                        classCode: userClassData.classCode,
+                    });
 
-          setClassroomData(userClassData.classCode, setLessonId);
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    }
-  }, [auth.currentUser]);
+                    setClassroomData(userClassData.classCode, setLessonId);
+                })
+                .catch((err) => {
+                    alert(err.message);
+                });
+        }
+    }, [auth.currentUser]);
 
-  return (
-    <Container>
-      <TitleBar />
+    return (
+        <Container>
+            <TitleBar />
 
-      <BodyContainer>
-        <VideoPlayerContainer>
-          <VideoPlayer />
-          {/* <h1>{lessonId}</h1> */}
-          <h6 style={{ textAlign: "center" }}>
-            {classData.year} {classData.category} {classData.group}
-          </h6>
-        </VideoPlayerContainer>
+            <BodyContainer>
+                <VideoPlayerContainer>
+                    <VideoPlayer />
+                    {/* <h1>{lessonId}</h1> */}
+                    <h6 style={{ textAlign: "center" }}>
+                        {classData.year} {classData.category} {classData.group}
+                    </h6>
+                </VideoPlayerContainer>
 
-        <ChatSectionContainer>
-          <ChatSection classData={classData} />
-        </ChatSectionContainer>
-      </BodyContainer>
+                <ChatSectionContainer>
+                    <ChatSection classData={classData} />
+                </ChatSectionContainer>
+            </BodyContainer>
 
-      {/* <LogoutButton /> */}
-    </Container>
-  );
+            {/* <LogoutButton /> */}
+        </Container>
+    );
 }
 
 export default ClassroomPage;
 
 const Container = styled.div`
-  height: 100vh;
+    height: 100vh;
 `;
 
 const BodyContainer = styled.div`
-  display: flex;
-  height: 100%;
+    display: flex;
+    height: 100%;
 
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
 
 const VideoPlayerContainer = styled.div`
-  flex: 3;
+    flex: 3;
 `;
 
 const ChatSectionContainer = styled.div`
-  flex: 1;
+    flex: 1;
 `;
