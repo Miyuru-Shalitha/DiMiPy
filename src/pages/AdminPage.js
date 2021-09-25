@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LessonSection from "../components/LessonSection";
+import ClassSection from "../components/ClassSection";
 import PrivateChatSection from "../components/PrivateChatSection";
 import PublicChatSection from "../components/PublicChatSection";
 import TitleBar from "../components/TitleBar";
@@ -12,7 +12,7 @@ function AdminPage() {
             <TitleBar />
 
             <BodyContainer>
-                <LessonSection />
+                <ClassSection />
 
                 <VideosSection />
 

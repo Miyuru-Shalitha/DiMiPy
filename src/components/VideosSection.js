@@ -1,20 +1,25 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
+import CreateItem from "./CreateItem";
 import VideoListItem from "./VideoListItem";
 
 function VideosSection() {
     return (
         <Section>
-            <Videos>
+            <VideosContainer>
                 <SectionHeading>Videos</SectionHeading>
 
-                <VideoListItem />
-                <VideoListItem />
-                <VideoListItem />
-                <VideoListItem />
-                <VideoListItem />
-            </Videos>
+                <VideoList>
+                    <VideoListItem />
+                    <VideoListItem />
+                    <VideoListItem />
+                    <VideoListItem />
+                    <VideoListItem />
+                </VideoList>
+
+                <CreateItem />
+            </VideosContainer>
 
             <VideoPreview>
                 <SectionHeading>Video Preview</SectionHeading>
@@ -48,9 +53,15 @@ const SectionHeading = styled.h2`
     letter-spacing: calc(1rem / 16);
 `;
 
-const Videos = styled.div`
+const VideosContainer = styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: column;
     background-color: #72f542;
+`;
+
+const VideoList = styled.div`
+    flex: 1;
 `;
 
 const VideoPreview = styled.div`
