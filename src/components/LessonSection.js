@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import LessonListItem from "./LessonListItem";
 
 function LessonSection() {
     return (
         <Section>
             <SectionHeading>Lessons</SectionHeading>
+
+            <Lessons>
+                <LessonListItem />
+                <LessonListItem />
+                <LessonListItem />
+            </Lessons>
         </Section>
     );
 }
@@ -25,3 +32,5 @@ const SectionHeading = styled.h2`
     text-transform: uppercase;
     letter-spacing: calc(1rem / 16);
 `;
+
+const Lessons = styled.div``;

@@ -4,7 +4,7 @@ import LessonSection from "../components/LessonSection";
 import PrivateChatSection from "../components/PrivateChatSection";
 import PublicChatSection from "../components/PublicChatSection";
 import TitleBar from "../components/TitleBar";
-import VideoSection from "../components/VideoSection";
+import VideosSection from "../components/VideosSection";
 
 function AdminPage() {
     return (
@@ -14,7 +14,7 @@ function AdminPage() {
             <BodyContainer>
                 <LessonSection />
 
-                <VideoSection />
+                <VideosSection />
 
                 <PrivateChatSection />
 
