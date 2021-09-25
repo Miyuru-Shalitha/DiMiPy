@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function ClassListItem() {
+function ClassListItem({ classCode }) {
     return (
         <Container>
-            <NameOfClass>class2021RAI</NameOfClass>
+            <NameOfClass>{classCode}</NameOfClass>
         </Container>
     );
 }

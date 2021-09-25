@@ -1,21 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LessonListItem from "./LessonListItem";
 import ClassListItem from "./ClassListItem";
 import CreateItem from "./CreateItem";
+import CreateClassForm from "./CreateClassForm";
+import { getClassList } from "../dbFunctions/handleClassSectionData";
 
 function ClassSection() {
+    const [classList, setClassList] = useState([]);
+
+    useEffect(() => {
+        getClassList(setClassList);
+    }, []);
+
     return (
         <Section>
             <ClassesContainer>
                 <SectionHeading>Classes</SectionHeading>
 
-                <ClassList>
-                    <ClassListItem />
-                    <ClassListItem />
-                </ClassList>
+                <ClassListContainer>
+                    <ClassList>
+                        {classList.map(({ classCode, lessonId }) => (
+                            <ClassListItem
+                                key={classCode}
+                                classCode={classCode}
+                            />
+                        ))}
+                    </ClassList>
+                </ClassListContainer>
 
-                <CreateItem />
+                <CreateClassForm setClassList={setClassList} />
+                {/* <CreateNewClassForm>
+                    <label htmlFor="cars">Choose a car:</label>
+                    <select name="cars" id="cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="opel">Opel</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <input type="submit" value="Submit" />
+                </CreateNewClassForm> */}
             </ClassesContainer>
 
             <LessonsContainer>
@@ -58,8 +82,13 @@ const ClassesContainer = styled.div`
     background-color: #965dd4;
 `;
 
-const ClassList = styled.div`
+const ClassListContainer = styled.div`
     flex: 1;
+`;
+
+const ClassList = styled.div`
+    height: 35vh;
+    overflow-y: scroll;
 `;
 
 const LessonsContainer = styled.div`
@@ -72,3 +101,5 @@ const LessonsContainer = styled.div`
 const LessonList = styled.div`
     flex: 1;
 `;
+
+const CreateNewClassForm = styled.form``;

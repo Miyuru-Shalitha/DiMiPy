@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { generateClassCode } from "../dbFunctions/getUserClassroomData";
+import { handleClassSectionData } from "../dbFunctions/handleClassSectionData";
 
-function CreateItem() {
+// import { CLASSES } from "../constants/dbConsts";
+// import { db } from "../firebase";
+// import { generateClassCode } from "../dbFunctions/getUserClassroomData";
+
+function CreateClassForm({ setClassList }) {
+    const [newClassCode, setNewClassCode] = useState("");
+
     const submit = (e) => {
         e.preventDefault();
 
         // console.log(generateClassCode(2022, "Theory", "Kurunegala"));
+
+        handleClassSectionData(newClassCode, setClassList);
     };
 
     return (
         <Container onSubmit={submit}>
-            <TextInput type="text" placeholder="Create Item" />
+            <TextInput
+                type="text"
+                placeholder="Create New Class"
+                onChange={(e) => {
+                    setNewClassCode(e.target.value);
+                }}
+                value={newClassCode}
+            />
             <CreateButton type="submit">Create</CreateButton>
         </Container>
     );
 }
 
-export default CreateItem;
+export default CreateClassForm;
 
 const Container = styled.form`
     padding: 0.5rem;

@@ -9,65 +9,65 @@ const KANDY = "Kandy";
 const ALL_ISLAND = "All Island";
 
 function getUserClassroomData(userId) {
-  return db
-    .collection(USERS)
-    .doc(userId)
-    .get()
-    .then((doc) => {
-      const data = doc.data();
-      const classCode = generateClassCode(
-        data.selectedYear,
-        data.selectedCategory,
-        data.selectedGroup
-      );
+    return db
+        .collection(USERS)
+        .doc(userId)
+        .get()
+        .then((doc) => {
+            const data = doc.data();
+            const classCode = generateClassCode(
+                data.selectedYear,
+                data.selectedCategory,
+                data.selectedGroup
+            );
 
-      return {
-        year: data.selectedYear,
-        category: data.selectedCategory,
-        group: data.selectedGroup,
-        classCode: classCode,
-      };
-    })
-    .catch((err) => {
-      alert(err.message);
-    });
+            return {
+                year: data.selectedYear,
+                category: data.selectedCategory,
+                group: data.selectedGroup,
+                classCode: classCode,
+            };
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
 }
 
 function generateClassCode(year, category, group) {
-  let categoryCode;
-  let groupCode;
+    let categoryCode;
+    let groupCode;
 
-  switch (category) {
-    case THEORY:
-      categoryCode = "T";
-      break;
+    switch (category) {
+        case THEORY:
+            categoryCode = "T";
+            break;
 
-    case REVISION:
-      categoryCode = "R";
-      break;
+        case REVISION:
+            categoryCode = "R";
+            break;
 
-    default:
-      alert("Invalid Category!");
-  }
+        default:
+            alert("Invalid Category!");
+    }
 
-  switch (group) {
-    case KURUNEGALA:
-      groupCode = "Ku";
-      break;
+    switch (group) {
+        case KURUNEGALA:
+            groupCode = "Ku";
+            break;
 
-    case KANDY:
-      groupCode = "Ka";
-      break;
+        case KANDY:
+            groupCode = "Ka";
+            break;
 
-    case ALL_ISLAND:
-      groupCode = "AI";
-      break;
+        case ALL_ISLAND:
+            groupCode = "AI";
+            break;
 
-    default:
-      alert("Invalid Group!");
-  }
+        default:
+            alert("Invalid Group!");
+    }
 
-  return `class${year}${categoryCode}${groupCode}`;
+    return `class${year}${categoryCode}${groupCode}`;
 }
 
-export { getUserClassroomData };
+export { getUserClassroomData, generateClassCode };
