@@ -26,8 +26,9 @@ function LessonListItem({
 export default LessonListItem;
 
 const Container = styled.div`
-    padding: 0.5rem;
+    flex: 1;
     margin: 0.5rem;
+    padding: 0.5rem;
     background-color: #34c9eb;
     border-radius: 0.5rem;
     cursor: pointer;

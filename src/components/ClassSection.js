@@ -9,6 +9,8 @@ import {
 } from "../dbFunctions/handleClassSectionData";
 import CreateLessonForm from "./CreateLessonForm";
 import { getLessonList } from "../dbFunctions/handleLessonSectionData";
+import { db } from "../firebase";
+import { handlePublishLesson } from "../dbFunctions/handlePublishLesson";
 
 function ClassSection({
     selectedClassCode,
@@ -18,8 +20,6 @@ function ClassSection({
 }) {
     const [classList, setClassList] = useState([]);
     const [lessonList, setLessonList] = useState([]);
-    // const [selectedClassCode, setSeletedClassCode] = useState(null);
-    // const [selectedLessonId, setSelectedLessonId] = useState(null);
 
     useEffect(() => {
         getClassList(setClassList);
@@ -31,6 +31,10 @@ function ClassSection({
             getLessonList(commonClassCode, setLessonList);
         }
     }, [selectedClassCode]);
+
+    const handlePublish = () => {
+        handlePublishLesson(selectedClassCode, selectedLessonId);
+    };
 
     return (
         <Section>
@@ -65,6 +69,11 @@ function ClassSection({
 
             <LessonsContainer>
                 <SectionHeading>Lessons</SectionHeading>
+                {selectedLessonId && (
+                    <PublishButton onClick={handlePublish}>
+                        Publish
+                    </PublishButton>
+                )}
 
                 <LessonListContainer>
                     <LessonList>
@@ -128,6 +137,29 @@ const LessonsContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #eb9b34;
+    position: relative;
+`;
+
+const PublishButton = styled.button`
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+    }
 `;
 
 const LessonListContainer = styled.div`
