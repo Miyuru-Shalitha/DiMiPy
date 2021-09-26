@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
-import CreateItem from "./CreateItem";
+import { filterCommonClassCode } from "../dbFunctions/handleClassSectionData";
+import { handleVideoSectionData } from "../dbFunctions/handleVideoSectionData";
+import { db } from "../firebase";
+import UploadVideoForm from "./UploadVideoForm";
 import VideoListItem from "./VideoListItem";
 
-function VideosSection() {
+function VideosSection({ selectedClassCode, selectedLessonId }) {
+    const [videoList, setVideoList] = useState([]);
+
+    useEffect(() => {
+        if (selectedClassCode && selectedLessonId) {
+            const commonClassCode = filterCommonClassCode(selectedClassCode);
+
+            handleVideoSectionData(
+                commonClassCode,
+                selectedLessonId,
+                setVideoList
+            );
+        }
+    }, [selectedClassCode, selectedLessonId]);
+
     return (
         <Section>
             <VideosContainer>
                 <SectionHeading>Videos</SectionHeading>
 
                 <VideoList>
-                    <VideoListItem />
-                    <VideoListItem />
-                    <VideoListItem />
-                    <VideoListItem />
-                    <VideoListItem />
+                    {videoList.map(
+                        ({ videoId, videoTitle, numOfQuestions, videoUrl }) => (
+                            <VideoListItem
+                                key={videoId}
+                                videoTitle={videoTitle}
+                                numOfQuestions={numOfQuestions}
+                                videoUrl={videoUrl}
+                            />
+                        )
+                    )}
                 </VideoList>
 
-                <CreateItem />
+                <UploadVideoForm
+                    selectedClassCode={selectedClassCode}
+                    selectedLessonId={selectedLessonId}
+                    setVideoList={setVideoList}
+                />
             </VideosContainer>
 
             <VideoPreview>

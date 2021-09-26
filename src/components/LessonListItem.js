@@ -1,9 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-function LessonListItem({ lessonName }) {
+function LessonListItem({
+    lessonId,
+    lessonName,
+    selectedLessonId,
+    setSelectedLessonId,
+}) {
     return (
-        <Container>
+        <Container
+            style={
+                lessonId === selectedLessonId
+                    ? { backgroundColor: "#fff" }
+                    : null
+            }
+            onClick={() => {
+                setSelectedLessonId(lessonId);
+            }}
+        >
             <LessonTitle>{lessonName}</LessonTitle>
         </Container>
     );

@@ -4,12 +4,17 @@ const USERS_PUBLIC_DATA = "usersPublicData";
 const CLASSES = "classes"; // THIS COLLECTION MUST BE CREATED MANUALLY.
 const CHATS = "chats";
 const LESSON_SERIES = "lessonSeries";
-const LESSONS = "lessons";
 ///////////////////////////////////////////
 
 /////////////// Sub Collections.///////////////
 const CHAT = "chat";
+const LESSONS = "lessons";
+const VIDEOS = "videos";
 ///////////////////////////////////////////////
+
+/////////////////////////////////////////////
+const TIMESTAMP = "timestamp";
+/////////////////////////////////////////////
 
 /////////////// Documents./////////////////
 // Kurunegala Theory.
@@ -45,6 +50,8 @@ export {
     CHAT,
     LESSON_SERIES,
     LESSONS,
+    VIDEOS,
+    TIMESTAMP,
     CLASS2021TKu,
     CLASS2022TKu,
     CLASS2023TKu,

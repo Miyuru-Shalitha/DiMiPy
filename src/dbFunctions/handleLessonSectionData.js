@@ -1,4 +1,4 @@
-import { LESSONS, LESSON_SERIES } from "../constants/dbConsts";
+import { LESSONS, LESSON_SERIES, TIMESTAMP } from "../constants/dbConsts";
 import { db } from "../firebase";
 import firebase from "firebase";
 
@@ -26,7 +26,7 @@ function getLessonList(commonClassCode, setLessonList) {
     lessonSeriesRef
         .doc(commonClassCode)
         .collection(LESSONS)
-        .orderBy("timestamp")
+        .orderBy(TIMESTAMP)
         .get()
         .then((data) => {
             const lessonList = data.docs.map((lesson) => ({

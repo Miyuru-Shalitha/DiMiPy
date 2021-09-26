@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-function VideoListItem() {
+function VideoListItem({ videoTitle, numOfQuestions, videoUrl }) {
     return (
         <Container>
-            <VideoTitle>Video Item</VideoTitle>
+            <VideoTitle>
+                <TextSpan>VideoTitle:</TextSpan> {videoTitle}
+            </VideoTitle>
+            <NumOfQuestions>
+                <TextSpan>Number of questions:</TextSpan> {numOfQuestions}
+            </NumOfQuestions>
         </Container>
     );
 }
@@ -31,3 +36,10 @@ const Container = styled.div`
 `;
 
 const VideoTitle = styled.h2``;
+
+const NumOfQuestions = styled.h3``;
+
+const TextSpan = styled.span`
+    color: #595959;
+    font-style: italic;
+`;

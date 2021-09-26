@@ -10,10 +10,16 @@ import {
 import CreateLessonForm from "./CreateLessonForm";
 import { getLessonList } from "../dbFunctions/handleLessonSectionData";
 
-function ClassSection() {
+function ClassSection({
+    selectedClassCode,
+    setSeletedClassCode,
+    selectedLessonId,
+    setSelectedLessonId,
+}) {
     const [classList, setClassList] = useState([]);
     const [lessonList, setLessonList] = useState([]);
-    const [selectedClassCode, setSeletedClassCode] = useState(null);
+    // const [selectedClassCode, setSeletedClassCode] = useState(null);
+    // const [selectedLessonId, setSelectedLessonId] = useState(null);
 
     useEffect(() => {
         getClassList(setClassList);
@@ -37,6 +43,7 @@ function ClassSection() {
                             <ClassListItem
                                 key={classCode}
                                 classCode={classCode}
+                                selectedClassCode={selectedClassCode}
                                 setSeletedClassCode={setSeletedClassCode}
                             />
                         ))}
@@ -64,7 +71,10 @@ function ClassSection() {
                         {lessonList.map(({ lessonId, lessonName }) => (
                             <LessonListItem
                                 key={lessonId}
+                                lessonId={lessonId}
                                 lessonName={lessonName}
+                                selectedLessonId={selectedLessonId}
+                                setSelectedLessonId={setSelectedLessonId}
                             />
                         ))}
                     </LessonList>

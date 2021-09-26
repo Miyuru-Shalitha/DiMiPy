@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ClassSection from "../components/ClassSection";
 import PrivateChatSection from "../components/PrivateChatSection";
@@ -7,14 +7,25 @@ import TitleBar from "../components/TitleBar";
 import VideosSection from "../components/VideosSection";
 
 function AdminPage() {
+    const [selectedClassCode, setSeletedClassCode] = useState(null);
+    const [selectedLessonId, setSelectedLessonId] = useState(null);
+
     return (
         <Container>
             <TitleBar />
 
             <BodyContainer>
-                <ClassSection />
+                <ClassSection
+                    selectedClassCode={selectedClassCode}
+                    setSeletedClassCode={setSeletedClassCode}
+                    selectedLessonId={selectedLessonId}
+                    setSelectedLessonId={setSelectedLessonId}
+                />
 
-                <VideosSection />
+                <VideosSection
+                    selectedClassCode={selectedClassCode}
+                    selectedLessonId={selectedLessonId}
+                />
 
                 <PrivateChatSection />
 

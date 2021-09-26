@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-function ClassListItem({ classCode, setSeletedClassCode }) {
+function ClassListItem({ classCode, selectedClassCode, setSeletedClassCode }) {
     return (
         <Container
+            style={
+                classCode === selectedClassCode
+                    ? { backgroundColor: "#fff" }
+                    : null
+            }
             onClick={() => {
                 setSeletedClassCode(classCode);
             }}
