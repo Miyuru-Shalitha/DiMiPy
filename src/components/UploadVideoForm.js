@@ -63,6 +63,9 @@ function UploadVideoForm({
                                 videoTitle: videoTitle,
                                 numberOfQuestions: numOfQuestions,
                                 videoUrl: url,
+                            })
+                            .catch((err) => {
+                                alert(err.message);
                             });
                     })
                     .then(() => {

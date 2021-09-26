@@ -9,6 +9,8 @@ import VideoListItem from "./VideoListItem";
 
 function VideosSection({ selectedClassCode, selectedLessonId }) {
     const [videoList, setVideoList] = useState([]);
+    const [preview, setPreview] = useState("");
+    const [selectedVideoId, setSelectedVideoId] = useState(null); // For videoItem's backgroundColor change when it is clicked.
 
     useEffect(() => {
         if (selectedClassCode && selectedLessonId) {
@@ -27,18 +29,29 @@ function VideosSection({ selectedClassCode, selectedLessonId }) {
             <VideosContainer>
                 <SectionHeading>Videos</SectionHeading>
 
-                <VideoList>
-                    {videoList.map(
-                        ({ videoId, videoTitle, numOfQuestions, videoUrl }) => (
-                            <VideoListItem
-                                key={videoId}
-                                videoTitle={videoTitle}
-                                numOfQuestions={numOfQuestions}
-                                videoUrl={videoUrl}
-                            />
-                        )
-                    )}
-                </VideoList>
+                <VideoListContainer>
+                    <VideoList>
+                        {videoList.map(
+                            ({
+                                videoId,
+                                videoTitle,
+                                numOfQuestions,
+                                videoUrl,
+                            }) => (
+                                <VideoListItem
+                                    key={videoId}
+                                    videoId={videoId}
+                                    videoTitle={videoTitle}
+                                    numOfQuestions={numOfQuestions}
+                                    videoUrl={videoUrl}
+                                    setPreview={setPreview}
+                                    selectedVideoId={selectedVideoId}
+                                    setSelectedVideoId={setSelectedVideoId}
+                                />
+                            )
+                        )}
+                    </VideoList>
+                </VideoListContainer>
 
                 <UploadVideoForm
                     selectedClassCode={selectedClassCode}
@@ -51,7 +64,7 @@ function VideosSection({ selectedClassCode, selectedLessonId }) {
                 <SectionHeading>Video Preview</SectionHeading>
 
                 <ReactPlayer
-                    url="https://firebasestorage.googleapis.com/v0/b/digital-mission-of-physi-c2c4f.appspot.com/o/Lesson%202%2FVID_20210621_130427%5B1%5D.mp4?alt=media&token=9ef9983d-e609-4f0b-8a50-9e485da3ab5e"
+                    url={preview}
                     width="1280"
                     height="1024"
                     controls={true}
@@ -86,8 +99,13 @@ const VideosContainer = styled.div`
     background-color: #72f542;
 `;
 
-const VideoList = styled.div`
+const VideoListContainer = styled.div`
     flex: 1;
+`;
+
+const VideoList = styled.div`
+    height: 42vh;
+    overflow-y: scroll;
 `;
 
 const VideoPreview = styled.div`

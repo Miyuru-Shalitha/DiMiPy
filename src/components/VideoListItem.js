@@ -1,9 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-function VideoListItem({ videoTitle, numOfQuestions, videoUrl }) {
+function VideoListItem({
+    videoId,
+    videoTitle,
+    numOfQuestions,
+    videoUrl,
+    setPreview,
+    selectedVideoId,
+    setSelectedVideoId,
+}) {
     return (
-        <Container>
+        <Container
+            style={
+                selectedVideoId === videoId ? { backgroundColor: "#fff" } : null
+            }
+            onClick={() => {
+                setSelectedVideoId(videoId);
+
+                setPreview(videoUrl);
+            }}
+        >
             <VideoTitle>
                 <TextSpan>VideoTitle:</TextSpan> {videoTitle}
             </VideoTitle>
