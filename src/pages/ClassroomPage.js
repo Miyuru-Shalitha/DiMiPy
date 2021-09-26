@@ -6,7 +6,8 @@ import TitleBar from "../components/TitleBar";
 import VideoPlayer from "../components/VideoPlayer";
 import { setClassroomData } from "../dbFunctions/setClassroomData";
 import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { getLesson } from "../dbFunctions/getLesson";
 
 function ClassroomPage() {
     const [classData, setClassData] = useState({
@@ -16,6 +17,8 @@ function ClassroomPage() {
         classCode: "",
     });
     const [lessonId, setLessonId] = useState("");
+    const [lessonTitle, setLessonTitle] = useState("");
+    const [lessonVideos, setLessonVideos] = useState([]);
 
     // useEffect(() => {
     //   if (auth.currentUser) {
@@ -60,13 +63,25 @@ function ClassroomPage() {
         }
     }, [auth.currentUser]);
 
+    useEffect(() => {
+        if (auth.currentUser) {
+            const unsubscribe = getLesson(
+                classData.classCode,
+                setLessonTitle,
+                setLessonVideos
+            );
+
+            return unsubscribe;
+        }
+    }, [lessonId]);
+
     return (
         <Container>
             <TitleBar />
 
             <BodyContainer>
                 <VideoPlayerContainer>
-                    <VideoPlayer />
+                    <VideoPlayer videoUrl={lessonVideos[0]?.videoUrl} />
                     {/* <h1>{lessonId}</h1> */}
                     <h6 style={{ textAlign: "center" }}>
                         {classData.year} {classData.category} {classData.group}

@@ -23,7 +23,11 @@ function ClassListItem({ classCode, selectedClassCode, setSeletedClassCode }) {
             onClick={handleClick}
         >
             <NameOfClass>{classCode}</NameOfClass>
-            <p>{lessonName}</p>
+            {lessonName && (
+                <p>
+                    <em>Published lesson:</em> {lessonName}
+                </p>
+            )}
         </Container>
     );
 }
