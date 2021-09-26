@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function LessonListItem() {
+function LessonListItem({ lessonName }) {
     return (
         <Container>
-            <LessonTitle>Lesson Item</LessonTitle>
+            <LessonTitle>{lessonName}</LessonTitle>
         </Container>
     );
 }

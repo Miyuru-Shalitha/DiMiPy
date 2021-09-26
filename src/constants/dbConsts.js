@@ -3,6 +3,8 @@ const USERS = "users";
 const USERS_PUBLIC_DATA = "usersPublicData";
 const CLASSES = "classes"; // THIS COLLECTION MUST BE CREATED MANUALLY.
 const CHATS = "chats";
+const LESSON_SERIES = "lessonSeries";
+const LESSONS = "lessons";
 ///////////////////////////////////////////
 
 /////////////// Sub Collections.///////////////
@@ -36,21 +38,23 @@ const CLASS2021RAI = "class2021RAI";
 ///////////////////////////////////////////
 
 export {
-  USERS,
-  USERS_PUBLIC_DATA,
-  CLASSES,
-  CHATS,
-  CHAT,
-  CLASS2021TKu,
-  CLASS2022TKu,
-  CLASS2023TKu,
-  CLASS2021RKu,
-  CLASS2021TKa,
-  CLASS2022TKa,
-  CLASS2023TKa,
-  CLASS2021RKa,
-  CLASS2021TAI,
-  CLASS2022TAI,
-  CLASS2023TAI,
-  CLASS2021RAI,
+    USERS,
+    USERS_PUBLIC_DATA,
+    CLASSES,
+    CHATS,
+    CHAT,
+    LESSON_SERIES,
+    LESSONS,
+    CLASS2021TKu,
+    CLASS2022TKu,
+    CLASS2023TKu,
+    CLASS2021RKu,
+    CLASS2021TKa,
+    CLASS2022TKa,
+    CLASS2023TKa,
+    CLASS2021RKa,
+    CLASS2021TAI,
+    CLASS2022TAI,
+    CLASS2023TAI,
+    CLASS2021RAI,
 };

@@ -2,16 +2,29 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LessonListItem from "./LessonListItem";
 import ClassListItem from "./ClassListItem";
-import CreateItem from "./CreateItem";
 import CreateClassForm from "./CreateClassForm";
-import { getClassList } from "../dbFunctions/handleClassSectionData";
+import {
+    filterCommonClassCode,
+    getClassList,
+} from "../dbFunctions/handleClassSectionData";
+import CreateLessonForm from "./CreateLessonForm";
+import { getLessonList } from "../dbFunctions/handleLessonSectionData";
 
 function ClassSection() {
     const [classList, setClassList] = useState([]);
+    const [lessonList, setLessonList] = useState([]);
+    const [selectedClassCode, setSeletedClassCode] = useState(null);
 
     useEffect(() => {
         getClassList(setClassList);
     }, []);
+
+    useEffect(() => {
+        if (selectedClassCode) {
+            const commonClassCode = filterCommonClassCode(selectedClassCode);
+            getLessonList(commonClassCode, setLessonList);
+        }
+    }, [selectedClassCode]);
 
     return (
         <Section>
@@ -24,6 +37,7 @@ function ClassSection() {
                             <ClassListItem
                                 key={classCode}
                                 classCode={classCode}
+                                setSeletedClassCode={setSeletedClassCode}
                             />
                         ))}
                     </ClassList>
@@ -45,13 +59,21 @@ function ClassSection() {
             <LessonsContainer>
                 <SectionHeading>Lessons</SectionHeading>
 
-                <LessonList>
-                    <LessonListItem />
-                    <LessonListItem />
-                    <LessonListItem />
-                </LessonList>
+                <LessonListContainer>
+                    <LessonList>
+                        {lessonList.map(({ lessonId, lessonName }) => (
+                            <LessonListItem
+                                key={lessonId}
+                                lessonName={lessonName}
+                            />
+                        ))}
+                    </LessonList>
+                </LessonListContainer>
 
-                <CreateItem />
+                <CreateLessonForm
+                    selectedClassCode={selectedClassCode}
+                    setLessonList={setLessonList}
+                />
             </LessonsContainer>
         </Section>
     );
@@ -98,8 +120,13 @@ const LessonsContainer = styled.div`
     background-color: #eb9b34;
 `;
 
-const LessonList = styled.div`
+const LessonListContainer = styled.div`
     flex: 1;
+`;
+
+const LessonList = styled.div`
+    height: 30vh;
+    overflow-y: scroll;
 `;
 
 const CreateNewClassForm = styled.form``;

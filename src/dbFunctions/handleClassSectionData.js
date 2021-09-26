@@ -1,13 +1,18 @@
-import { CLASSES } from "../constants/dbConsts";
+import { CLASSES, LESSON_SERIES } from "../constants/dbConsts";
 import { db } from "../firebase";
+import firebase from "firebase";
 
 const classRef = db.collection(CLASSES);
+const lessonSeriesRef = db.collection(LESSON_SERIES);
 
 function handleClassSectionData(newClassCode, setClassList) {
     classRef
         .doc(newClassCode)
         .set({
             lessonId: "welcome",
+        })
+        .then(() => {
+            createNewLessonSeries(newClassCode);
         })
         .then(() => {
             getClassList(setClassList);
@@ -30,4 +35,23 @@ function getClassList(setClassList) {
         .catch((err) => alert(err.message));
 }
 
-export { handleClassSectionData, getClassList };
+function createNewLessonSeries(newClassCode) {
+    const commonClassCode = filterCommonClassCode(newClassCode);
+    lessonSeriesRef
+        .doc(commonClassCode)
+        .set({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+            alert(`An empty lesson series for ${commonClassCode} is created.`);
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
+}
+
+function filterCommonClassCode(newClassCode) {
+    return newClassCode.slice(5, 10);
+}
+
+export { handleClassSectionData, getClassList, filterCommonClassCode };
