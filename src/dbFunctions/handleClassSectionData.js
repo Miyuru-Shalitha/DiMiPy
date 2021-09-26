@@ -1,4 +1,4 @@
-import { CLASSES, LESSON_SERIES } from "../constants/dbConsts";
+import { CLASSES, LESSON_SERIES, WELCOME } from "../constants/dbConsts";
 import { db } from "../firebase";
 import firebase from "firebase";
 
@@ -9,7 +9,7 @@ function handleClassSectionData(newClassCode, setClassList) {
     classRef
         .doc(newClassCode)
         .set({
-            lessonId: "welcome",
+            lessonId: WELCOME,
         })
         .then(() => {
             createNewLessonSeries(newClassCode);

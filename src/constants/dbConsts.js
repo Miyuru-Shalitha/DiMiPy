@@ -14,6 +14,7 @@ const VIDEOS = "videos";
 
 /////////////////////////////////////////////
 const TIMESTAMP = "timestamp";
+const WELCOME = "welcome"; // Default lessonId.
 /////////////////////////////////////////////
 
 /////////////// Documents./////////////////
@@ -52,6 +53,7 @@ export {
     LESSONS,
     VIDEOS,
     TIMESTAMP,
+    WELCOME,
     CLASS2021TKu,
     CLASS2022TKu,
     CLASS2023TKu,

@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { filterCommonClassCode } from "../dbFunctions/handleClassSectionData";
+import { getPublishedLesson } from "../dbFunctions/handlePublishLesson";
+import { db } from "../firebase";
 
 function ClassListItem({ classCode, selectedClassCode, setSeletedClassCode }) {
+    const [lessonName, setLessonName] = useState("");
+
+    const handleClick = () => {
+        setSeletedClassCode(classCode);
+
+        getPublishedLesson(classCode, setLessonName);
+    };
+
     return (
         <Container
             style={
@@ -9,11 +20,10 @@ function ClassListItem({ classCode, selectedClassCode, setSeletedClassCode }) {
                     ? { backgroundColor: "#fff" }
                     : null
             }
-            onClick={() => {
-                setSeletedClassCode(classCode);
-            }}
+            onClick={handleClick}
         >
             <NameOfClass>{classCode}</NameOfClass>
+            <p>{lessonName}</p>
         </Container>
     );
 }
