@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ClassSection from "../components/ClassSection";
 import PrivateChatSection from "../components/PrivateChatSection";
@@ -29,7 +29,7 @@ function AdminPage() {
 
                 <PrivateChatSection />
 
-                <PublicChatSection />
+                <PublicChatSection selectedClassCode={selectedClassCode} />
             </BodyContainer>
         </Container>
     );

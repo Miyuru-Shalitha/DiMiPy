@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import getPublicMessages from "../dbFunctions/getPublicMessages";
+import ChatBox from "./ChatBox";
+import SendPublicMessageForm from "./SendPublicMessageForm";
 
-function PublicChatSection() {
+function PublicChatSection({ selectedClassCode }) {
+    const [chat, setChat] = useState([]);
+
+    useEffect(() => {
+        if (selectedClassCode) {
+            const unsubscribe = getPublicMessages(selectedClassCode, setChat);
+
+            return unsubscribe;
+        }
+    }, [selectedClassCode]);
+
     return (
         <Section>
             <SectionHeading>Public Chat</SectionHeading>
+
+            <ChatListContainer>
+                <ChatList>
+                    {chat.map(({ chatId, chat }) => (
+                        <ChatBox key={chatId} chatData={chat} />
+                    ))}
+                </ChatList>
+            </ChatListContainer>
+
+            <SendPublicMessageForm selectedClassCode={selectedClassCode} />
         </Section>
     );
 }
@@ -15,6 +38,9 @@ const Section = styled.section`
     flex: 1;
     height: 92vh;
     background-color: #e0ff54;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
 `;
 
 const SectionHeading = styled.h2`
@@ -25,3 +51,10 @@ const SectionHeading = styled.h2`
     text-transform: uppercase;
     letter-spacing: calc(1rem / 16);
 `;
+
+const ChatListContainer = styled.div`
+    flex: 1;
+    overflow-y: scroll;
+`;
+
+const ChatList = styled.div``;

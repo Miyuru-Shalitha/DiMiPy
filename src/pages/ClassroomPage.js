@@ -101,12 +101,15 @@ function ClassroomPage() {
 export default ClassroomPage;
 
 const Container = styled.div`
-    height: 100vh;
+    /* overflow: hidden; */
+    @media (max-width: 600px) {
+        overflow: hidden;
+    }
 `;
 
 const BodyContainer = styled.div`
     display: flex;
-    height: 100%;
+    /* height: 100%; */
 
     @media (max-width: 600px) {
         flex-direction: column;
