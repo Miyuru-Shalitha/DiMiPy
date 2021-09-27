@@ -64,7 +64,7 @@ function ClassroomPage() {
     }, [auth.currentUser]);
 
     useEffect(() => {
-        if (auth.currentUser) {
+        if (auth.currentUser && classData.classCode.length > 0) {
             const unsubscribe = getLesson(
                 classData.classCode,
                 setLessonTitle,
@@ -81,7 +81,7 @@ function ClassroomPage() {
 
             <BodyContainer>
                 <VideoPlayerContainer>
-                    <VideoPlayer videoUrl={lessonVideos[0]?.videoUrl} />
+                    <VideoPlayer videos={lessonVideos} />
                     {/* <h1>{lessonId}</h1> */}
                     <h6 style={{ textAlign: "center" }}>
                         {classData.year} {classData.category} {classData.group}
