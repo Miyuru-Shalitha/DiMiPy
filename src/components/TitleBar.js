@@ -23,11 +23,12 @@ function TitleBar() {
 export default TitleBar;
 
 const Container = styled.div`
-    background-color: #66b3ff;
+    /* background-color: #66b3ff; */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 8vh;
+    background-image: linear-gradient(to right, #66b300, #66b3ff);
 `;
 
 const TitleTextContainer = styled.div`

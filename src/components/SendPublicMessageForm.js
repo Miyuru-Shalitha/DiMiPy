@@ -15,7 +15,7 @@ function SendPublicMessageForm({ selectedClassCode }) {
         <Container onSubmit={submit}>
             <TextInput
                 type="text"
-                placeholder="Create New Lesson"
+                placeholder="Send a message"
                 onChange={(e) => {
                     setMessage(e.target.value);
                 }}
