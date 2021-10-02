@@ -43,6 +43,8 @@ function ChatSection({ classData }) {
                         }}
                         value={message}
                     />
+
+                    <SendButton type="submit">Send</SendButton>
                 </SendMessageForm>
             </SendMessageContainer>
         </Container>
@@ -53,9 +55,13 @@ export default ChatSection;
 
 const Container = styled.div`
     background-color: #00ffbf;
-    height: 90vh;
+    /* height: 90vh; */
     /* height: 100%; */
     padding: 0.5rem;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
 
     @media (max-width: 600px) {
         height: 56vh;
@@ -63,7 +69,9 @@ const Container = styled.div`
 `;
 
 const ChatContainer = styled.div`
-    height: 80vh;
+    /* height: 80vh; */
+    /* flex: 0 0 82vh; */
+    flex: 1;
     overflow-y: scroll;
 
     @media (max-width: 600px) {
@@ -72,12 +80,12 @@ const ChatContainer = styled.div`
 `;
 
 const SendMessageContainer = styled.div`
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
         flex-direction: column;
-        /* position: fixed; */
+        position: fixed;
         width: 88vw;
         bottom: 0;
-    }
+    } */
 `;
 
 const SendMessageForm = styled.form`
@@ -87,10 +95,12 @@ const SendMessageForm = styled.form`
 
 const MessageInput = styled.input`
     padding: 0.5rem;
+    margin-right: 0.5rem;
     flex: 1;
     border-radius: 0.5rem;
     border: 0.16rem solid #009150;
     outline: none;
+    transition: all 0.2s;
 
     :hover {
         border: 0.16rem solid #87ffc9;
@@ -98,5 +108,23 @@ const MessageInput = styled.input`
 
     :focus {
         border: 0.16rem solid #ffdb59;
+    }
+`;
+
+const SendButton = styled.button`
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
     }
 `;

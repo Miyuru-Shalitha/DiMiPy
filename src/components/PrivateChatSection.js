@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { handleStudentsSectionData } from "../dbFunctions/handleStudentsSectionData";
-import { db } from "../firebase";
+import ChatBox from "./ChatBox";
 import StudentListItem from "./StudentListItem";
 
 function PrivateChatSection({ selectedClassCode }) {
     const [students, setStudents] = useState([]);
+    const [selectedStudentId, setSelectedStudentId] = useState(null);
 
     useEffect(() => {
         if (selectedClassCode) {
@@ -22,13 +23,27 @@ function PrivateChatSection({ selectedClassCode }) {
                     {students.map(({ studentId, studentData }) => (
                         <StudentListItem
                             key={studentId}
+                            studentId={studentId}
                             username={studentData.username}
+                            selectedStudentId={selectedStudentId}
+                            setSelectedStudentId={setSelectedStudentId}
                         />
                     ))}
                 </StudentListItemContainer>
             </StudentSection>
+
             <ChatSection>
                 <SectionHeading>Private Chat</SectionHeading>
+
+                <ChatListContainer>
+                    {/* <ChatBox /> */}
+                    <h1>Chat</h1>
+                    <h1>Chat</h1>
+                    <h1>Chat</h1>
+                    <h1>Chat</h1>
+                    <h1>Chat</h1>
+                    <h1>Chat</h1>
+                </ChatListContainer>
             </ChatSection>
         </Section>
     );
@@ -67,3 +82,5 @@ const ChatSection = styled.section`
     flex: 1;
     background-color: #5473ff;
 `;
+
+const ChatListContainer = styled.div``;

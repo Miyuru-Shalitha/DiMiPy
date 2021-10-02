@@ -2,9 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
-function StudentListItem({ username }) {
+function StudentListItem({
+    studentId,
+    username,
+    selectedStudentId,
+    setSelectedStudentId,
+}) {
     return (
-        <Container>
+        <Container
+            style={
+                studentId === selectedStudentId
+                    ? { backgroundColor: "#fff" }
+                    : null
+            }
+            onClick={() => {
+                setSelectedStudentId(studentId);
+            }}
+        >
             <FallbackAvatar
                 username={username}
                 profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"

@@ -88,9 +88,9 @@ function ClassroomPage() {
                     </h6>
                 </VideoPlayerContainer>
 
-                <ChatSectionContainer>
-                    <ChatSection classData={classData} />
-                </ChatSectionContainer>
+                {/* <ChatSectionContainer> */}
+                <ChatSection classData={classData} />
+                {/* </ChatSectionContainer> */}
             </BodyContainer>
 
             {/* <LogoutButton /> */}
@@ -110,6 +110,7 @@ const Container = styled.div`
 const BodyContainer = styled.div`
     display: flex;
     /* height: 100%; */
+    height: 92vh;
 
     @media (max-width: 600px) {
         flex-direction: column;
