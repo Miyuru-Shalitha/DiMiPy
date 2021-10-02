@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { handleStudentsSectionData } from "../dbFunctions/handleStudentsSectionData";
+import { db } from "../firebase";
+import StudentListItem from "./StudentListItem";
 
-function PrivateChatSection() {
+function PrivateChatSection({ selectedClassCode }) {
+    const [students, setStudents] = useState([]);
+
+    useEffect(() => {
+        if (selectedClassCode) {
+            handleStudentsSectionData(selectedClassCode, setStudents);
+        }
+    }, [selectedClassCode]);
+
     return (
         <Section>
             <StudentSection>
                 <SectionHeading>Students</SectionHeading>
+
+                <StudentListItemContainer>
+                    {students.map(({ studentId, studentData }) => (
+                        <StudentListItem
+                            key={studentId}
+                            username={studentData.username}
+                        />
+                    ))}
+                </StudentListItemContainer>
             </StudentSection>
             <ChatSection>
                 <SectionHeading>Private Chat</SectionHeading>
@@ -18,9 +38,10 @@ export default PrivateChatSection;
 
 const Section = styled.section`
     flex: 1;
+
     display: flex;
     flex-direction: column;
-    height: 92vh;
+    /* height: 92vh; */
 `;
 
 const SectionHeading = styled.h2`
@@ -33,8 +54,13 @@ const SectionHeading = styled.h2`
 `;
 
 const StudentSection = styled.section`
-    flex: 1;
+    /* flex: 0 0 40vh; */
     background-color: #42f5d4;
+`;
+
+const StudentListItemContainer = styled.div`
+    height: 40vh;
+    overflow-y: scroll;
 `;
 
 const ChatSection = styled.section`

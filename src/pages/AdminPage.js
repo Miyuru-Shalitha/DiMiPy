@@ -27,7 +27,7 @@ function AdminPage() {
                     selectedLessonId={selectedLessonId}
                 />
 
-                <PrivateChatSection />
+                <PrivateChatSection selectedClassCode={selectedClassCode} />
 
                 <PublicChatSection selectedClassCode={selectedClassCode} />
             </BodyContainer>

@@ -2,7 +2,6 @@ import { CHAT, CHATS, TIMESTAMP } from "../constants/dbConsts";
 import { db } from "../firebase";
 
 function getPublicMessages(classCode, setChat) {
-    console.log(classCode);
     return db
         .collection(CHATS)
         .doc(classCode)
