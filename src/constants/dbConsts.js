@@ -3,6 +3,7 @@ const USERS = "users";
 const USERS_PUBLIC_DATA = "usersPublicData";
 const CLASSES = "classes"; // THIS COLLECTION MUST BE CREATED MANUALLY.
 const CHATS = "chats";
+const PRIVATE_CHATS = "privateChats";
 const LESSON_SERIES = "lessonSeries";
 ///////////////////////////////////////////
 
@@ -10,6 +11,7 @@ const LESSON_SERIES = "lessonSeries";
 const CHAT = "chat";
 const LESSONS = "lessons";
 const VIDEOS = "videos";
+const CHATS_2 = "chats";
 ///////////////////////////////////////////////
 
 /////////////////////////////////////////////
@@ -49,9 +51,11 @@ export {
     CLASSES,
     CHATS,
     CHAT,
+    PRIVATE_CHATS,
     LESSON_SERIES,
     LESSONS,
     VIDEOS,
+    CHATS_2,
     TIMESTAMP,
     WELCOME,
     CLASS2021TKu,

@@ -1,11 +1,11 @@
 import { db, auth } from "../firebase";
 import firebase from "firebase";
-import { CHAT, CHATS } from "../constants/dbConsts";
+import { CHATS_2, PRIVATE_CHATS } from "../constants/dbConsts";
 
 function sendPrivateMessage(classCode, message, setMessage) {
-    db.collection(CHATS)
-        .doc(classCode)
-        .collection(CHAT)
+    db.collection(PRIVATE_CHATS)
+        .doc(auth.currentUser.uid)
+        .collection(CHATS_2)
         .add({
             userId: auth.currentUser.uid,
             message: message,
