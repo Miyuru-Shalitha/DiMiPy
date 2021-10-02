@@ -1,7 +1,8 @@
+import { USERS_PUBLIC_DATA } from "../constants/dbConsts";
 import { db } from "../firebase";
 
 function handleStudentsSectionData(selectedClassCode, setStudents) {
-    db.collection("usersPublicData")
+    db.collection(USERS_PUBLIC_DATA)
         .get()
         .then((data) => {
             const studentList = data.docs.map((student) => {
