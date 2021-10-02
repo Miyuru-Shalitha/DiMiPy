@@ -1,7 +1,7 @@
 import { CHATS_2, PRIVATE_CHATS, TIMESTAMP } from "../constants/dbConsts";
 import { db } from "../firebase";
 
-function getPrivateMessages(userId, classCode, setChat) {
+function getPrivateMessages(userId, setChat) {
     return db
         .collection(PRIVATE_CHATS)
         .doc(userId)

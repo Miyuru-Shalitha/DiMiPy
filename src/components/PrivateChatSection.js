@@ -1,18 +1,42 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import getPrivateMessages from "../dbFunctions/getPrivateMessages";
 import { handleStudentsSectionData } from "../dbFunctions/handleStudentsSectionData";
 import ChatBox from "./ChatBox";
+import SendPrivateMessageForm from "./SendPrivateMessageForm";
+import SendPublicMessageForm from "./SendPublicMessageForm";
 import StudentListItem from "./StudentListItem";
 
 function PrivateChatSection({ selectedClassCode }) {
     const [students, setStudents] = useState([]);
     const [selectedStudentId, setSelectedStudentId] = useState(null);
+    const [chat, setChat] = useState();
 
     useEffect(() => {
         if (selectedClassCode) {
             handleStudentsSectionData(selectedClassCode, setStudents);
         }
     }, [selectedClassCode]);
+
+    useEffect(() => {
+        if (selectedStudentId) {
+            const unsubscribe = getPrivateMessages(selectedStudentId, setChat);
+
+            return unsubscribe;
+        }
+    }, [selectedStudentId]);
+
+    // useEffect(() => {
+    //     if (classData.classCode !== "") {
+    //         const unsubscribe = getPrivateMessages(
+    //             auth.currentUser.uid,
+    //             classData.classCode,
+    //             setChat
+    //         );
+
+    //         return unsubscribe;
+    //     }
+    // }, [classData]);
 
     return (
         <Section>
@@ -36,14 +60,15 @@ function PrivateChatSection({ selectedClassCode }) {
                 <SectionHeading>Private Chat</SectionHeading>
 
                 <ChatListContainer>
-                    {/* <ChatBox /> */}
-                    <h1>Chat</h1>
-                    <h1>Chat</h1>
-                    <h1>Chat</h1>
-                    <h1>Chat</h1>
-                    <h1>Chat</h1>
-                    <h1>Chat</h1>
+                    <ChatList>
+                        {chat &&
+                            chat.map(({ chatId, chat }) => (
+                                <ChatBox key={chatId} chatData={chat} />
+                            ))}
+                    </ChatList>
                 </ChatListContainer>
+
+                <SendPrivateMessageForm selectedStudentId={selectedStudentId} />
             </ChatSection>
         </Section>
     );
@@ -74,13 +99,23 @@ const StudentSection = styled.section`
 `;
 
 const StudentListItemContainer = styled.div`
-    height: 40vh;
+    height: 35vh;
     overflow-y: scroll;
 `;
 
 const ChatSection = styled.section`
     flex: 1;
     background-color: #5473ff;
+
+    display: flex;
+    flex-direction: column;
 `;
 
-const ChatListContainer = styled.div``;
+const ChatListContainer = styled.div`
+    flex: 1;
+`;
+
+const ChatList = styled.div`
+    height: 37vh;
+    overflow-y: scroll;
+`;

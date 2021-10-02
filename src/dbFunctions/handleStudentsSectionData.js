@@ -1,5 +1,10 @@
-import { USERS_PUBLIC_DATA } from "../constants/dbConsts";
-import { db } from "../firebase";
+import {
+    CHATS_2,
+    PRIVATE_CHATS,
+    USERS_PUBLIC_DATA,
+} from "../constants/dbConsts";
+import { auth, db } from "../firebase";
+import firebase from "firebase";
 
 function handleStudentsSectionData(selectedClassCode, setStudents) {
     db.collection(USERS_PUBLIC_DATA)
@@ -23,4 +28,21 @@ function handleStudentsSectionData(selectedClassCode, setStudents) {
         });
 }
 
-export { handleStudentsSectionData };
+function sendPrivateMessage(studentId, message, setMessage) {
+    db.collection(PRIVATE_CHATS)
+        .doc(studentId)
+        .collection(CHATS_2)
+        .add({
+            userId: auth.currentUser.uid,
+            message: message,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+            setMessage("");
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
+}
+
+export { handleStudentsSectionData, sendPrivateMessage };

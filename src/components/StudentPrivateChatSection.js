@@ -15,7 +15,6 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
         if (classData.classCode !== "") {
             const unsubscribe = getPrivateMessages(
                 auth.currentUser.uid,
-                classData.classCode,
                 setChat
             );
 
@@ -23,10 +22,10 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
         }
     }, [classData]);
 
-    const handleSendMessage = (e) => {
+    const handleSendPrivateMessage = (e) => {
         e.preventDefault();
 
-        sendPrivateMessage(classData.classCode, message, setMessage);
+        sendPrivateMessage(message, setMessage);
     };
 
     return (
@@ -49,7 +48,7 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
             <SendMessageContainer>
                 <Divider />
 
-                <SendMessageForm onSubmit={handleSendMessage}>
+                <SendMessageForm onSubmit={handleSendPrivateMessage}>
                     <MessageInput
                         placeholder="Send a private message"
                         onChange={(e) => {
