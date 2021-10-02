@@ -8,6 +8,7 @@ import { setClassroomData } from "../dbFunctions/setClassroomData";
 import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
 import { auth, db } from "../firebase";
 import { getLesson } from "../dbFunctions/getLesson";
+import StudentPrivateChatSection from "../components/StudentPrivateChatSection";
 
 function ClassroomPage() {
     const [classData, setClassData] = useState({
@@ -19,6 +20,7 @@ function ClassroomPage() {
     const [lessonId, setLessonId] = useState("");
     const [lessonTitle, setLessonTitle] = useState("");
     const [lessonVideos, setLessonVideos] = useState([]);
+    const [showPrivateChat, setShowPrivateChat] = useState(false);
 
     // useEffect(() => {
     //   if (auth.currentUser) {
@@ -88,9 +90,17 @@ function ClassroomPage() {
                     </h6>
                 </VideoPlayerContainer>
 
-                {/* <ChatSectionContainer> */}
-                <ChatSection classData={classData} />
-                {/* </ChatSectionContainer> */}
+                {showPrivateChat ? (
+                    <StudentPrivateChatSection
+                        classData={classData}
+                        setShowPrivateChat={setShowPrivateChat}
+                    />
+                ) : (
+                    <ChatSection
+                        classData={classData}
+                        setShowPrivateChat={setShowPrivateChat}
+                    />
+                )}
             </BodyContainer>
 
             {/* <LogoutButton /> */}
@@ -111,6 +121,8 @@ const BodyContainer = styled.div`
     display: flex;
     /* height: 100%; */
     height: 92vh;
+
+    position: relative;
 
     @media (max-width: 600px) {
         flex-direction: column;

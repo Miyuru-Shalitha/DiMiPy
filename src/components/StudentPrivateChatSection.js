@@ -1,12 +1,11 @@
 import Divider from "@material-ui/core/Divider";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ChatBox from "./ChatBox";
 import sendPublicMessage from "../dbFunctions/sendPublicMessage";
 import getPublicMessages from "../dbFunctions/getPublicMessages";
-import StudentPrivateChatSection from "./StudentPrivateChatSection";
 
-function ChatSection({ classData, setShowPrivateChat }) {
+function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
     const [message, setMessage] = useState("");
     const [chat, setChat] = useState("");
 
@@ -28,7 +27,7 @@ function ChatSection({ classData, setShowPrivateChat }) {
         <Container>
             <button
                 onClick={() => {
-                    setShowPrivateChat(true);
+                    setShowPrivateChat(false);
                 }}
             >
                 Show Private Chat Section
@@ -46,7 +45,7 @@ function ChatSection({ classData, setShowPrivateChat }) {
 
                 <SendMessageForm onSubmit={handleSendMessage}>
                     <MessageInput
-                        placeholder="Send a message"
+                        placeholder="Send a private message"
                         onChange={(e) => {
                             setMessage(e.target.value);
                         }}
@@ -60,15 +59,22 @@ function ChatSection({ classData, setShowPrivateChat }) {
     );
 }
 
-export default ChatSection;
+export default StudentPrivateChatSection;
+
+const moveInFromRight = keyframes`
+from {
+    transform: translateX(100%);
+}
+to {
+    transform: translateX(0%);
+}
+`;
 
 const Container = styled.div`
-    background-color: #00ffbf;
-    /* height: 90vh; */
-    /* height: 100%; */
+    background-color: #f5dd42;
     padding: 0.5rem;
     flex: 1;
-    /* position: relative; */
+    animation: ${moveInFromRight} 1s;
 
     display: flex;
     flex-direction: column;
