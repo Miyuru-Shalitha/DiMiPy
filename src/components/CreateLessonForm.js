@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LESSON_SERIES } from "../constants/dbConsts";
-import { generateClassCode } from "../dbFunctions/getUserClassroomData";
 import { filterCommonClassCode } from "../dbFunctions/handleClassSectionData";
 import { handleLessonSectionData } from "../dbFunctions/handleLessonSectionData";
-import { db } from "../firebase";
 
 function CreateLessonForm({ selectedClassCode, setLessonList }) {
     const [newLessonName, setNewLessonName] = useState("");
@@ -19,6 +16,8 @@ function CreateLessonForm({ selectedClassCode, setLessonList }) {
                 newLessonName,
                 setLessonList
             );
+
+            setNewLessonName(""); // Reset input text.
         } else {
             alert("Please select a class");
         }

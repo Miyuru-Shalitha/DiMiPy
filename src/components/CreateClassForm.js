@@ -15,6 +15,7 @@ function CreateClassForm({ setClassList }) {
         // console.log(generateClassCode(2022, "Theory", "Kurunegala"));
 
         handleClassSectionData(newClassCode, setClassList);
+        setNewClassCode(""); // Reset input text.
     };
 
     return (
