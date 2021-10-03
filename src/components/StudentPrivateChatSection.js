@@ -15,7 +15,8 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
         if (classData.classCode !== "") {
             const unsubscribe = getPrivateMessages(
                 auth.currentUser.uid,
-                setChat
+                setChat,
+                true
             );
 
             return unsubscribe;
@@ -100,6 +101,9 @@ const ChatContainer = styled.div`
     /* flex: 0 0 82vh; */
     flex: 1;
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column-reverse;
 
     @media (max-width: 600px) {
         height: 48vh;

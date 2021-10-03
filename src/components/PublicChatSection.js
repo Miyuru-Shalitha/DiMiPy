@@ -61,6 +61,9 @@ const SectionHeading = styled.h2`
 const ChatListContainer = styled.div`
     flex: 1;
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column-reverse;
 `;
 
 const ChatList = styled.div``;

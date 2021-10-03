@@ -12,7 +12,11 @@ function ChatSection({ classData, setShowPrivateChat }) {
 
     useEffect(() => {
         if (classData.classCode !== "") {
-            const unsubscribe = getPublicMessages(classData.classCode, setChat);
+            const unsubscribe = getPublicMessages(
+                classData.classCode,
+                setChat,
+                true
+            );
 
             return unsubscribe;
         }
@@ -89,6 +93,9 @@ const ChatContainer = styled.div`
     /* flex: 0 0 82vh; */
     flex: 1;
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column-reverse;
 
     @media (max-width: 600px) {
         height: 48vh;

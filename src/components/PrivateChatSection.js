@@ -20,7 +20,11 @@ function PrivateChatSection({ selectedClassCode }) {
 
     useEffect(() => {
         if (selectedStudentId) {
-            const unsubscribe = getPrivateMessages(selectedStudentId, setChat);
+            const unsubscribe = getPrivateMessages(
+                selectedStudentId,
+                setChat,
+                true
+            );
 
             return unsubscribe;
         }
@@ -124,4 +128,7 @@ const ChatListContainer = styled.div`
 const ChatList = styled.div`
     height: 37vh;
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column-reverse;
 `;
