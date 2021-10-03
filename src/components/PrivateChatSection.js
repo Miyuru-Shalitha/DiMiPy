@@ -72,6 +72,7 @@ function PrivateChatSection({ selectedClassCode }) {
                                     chatId={chatId}
                                     chatData={chat}
                                     classCode={selectedClassCode}
+                                    studentId={selectedStudentId}
                                     isPrivate={true}
                                 />
                             ))}

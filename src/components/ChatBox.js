@@ -6,7 +6,8 @@ import getUserDataFromUserId from "../dbFunctions/getUserDataFromUserId";
 import { auth, db } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
-function ChatBox({ chatId, chatData, classCode, isPrivate }) {
+function ChatBox({ chatId, chatData, classCode, studentId = null, isPrivate }) {
+    // studentId is for admin private chat section.
     const [chatUserData, setChatUserData] = useState("");
 
     useEffect(() => {
@@ -22,7 +23,11 @@ function ChatBox({ chatId, chatData, classCode, isPrivate }) {
         if (!isPrivate) {
             deleteChat(classCode, chatId);
         } else {
-            deletePrivateChat(chatData.userId, chatId);
+            if (studentId) {
+                deletePrivateChat(studentId, chatId);
+            } else {
+                deletePrivateChat(chatData.userId, chatId);
+            }
         }
     };
 
