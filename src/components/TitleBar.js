@@ -2,21 +2,27 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { auth } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
+import LogoutButton from "../components/LogoutButton";
 
 function TitleBar() {
     return (
-        <Container>
-            <TitleTextContainer>
-                <TitleText>
-                    භෞතික විද්‍යාවේ <DigitalText>Digital</DigitalText> මෙහෙයුම.
-                </TitleText>
-            </TitleTextContainer>
+        <>
+            <Container>
+                <TitleTextContainer>
+                    <TitleText>
+                        භෞතික විද්‍යාවේ <DigitalText>Digital</DigitalText>{" "}
+                        මෙහෙයුම.
+                    </TitleText>
+                </TitleTextContainer>
 
-            <FallbackAvatar
-                username={auth?.currentUser?.displayName}
-                profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
-            />
-        </Container>
+                <FallbackAvatar
+                    username={auth?.currentUser?.displayName}
+                    profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+                />
+            </Container>
+
+            <LogoutButton />
+        </>
     );
 }
 

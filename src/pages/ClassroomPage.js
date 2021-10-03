@@ -101,8 +101,6 @@ function ClassroomPage() {
                     />
                 )}
             </BodyContainer>
-
-            {/* <LogoutButton /> */}
         </Container>
     );
 }
