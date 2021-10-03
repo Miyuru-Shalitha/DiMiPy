@@ -40,7 +40,12 @@ function AdminPage() {
 
 export default AdminPage;
 
-const Container = styled.div``;
+const Container = styled.div`
+    /* TEST */
+    @media only screen and (max-width: 900px) {
+        font-size: 70%;
+    }
+`;
 
 const BodyContainer = styled.div`
     display: flex;

@@ -35,6 +35,11 @@ const Container = styled.div`
     align-items: center;
     height: 8vh;
     background-image: linear-gradient(to right, #66b300, #66b3ff);
+
+    /* TEST */
+    @media only screen and (max-width: 900px) {
+        font-size: 60%;
+    }
 `;
 
 const TitleTextContainer = styled.div`
