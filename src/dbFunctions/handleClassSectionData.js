@@ -59,4 +59,21 @@ function filterCommonClassCode(newClassCode) {
     return newClassCode.slice(5, 10);
 }
 
-export { handleClassSectionData, getClassList, filterCommonClassCode };
+function deleteClass(classCode, setSeletedClassCode) {
+    db.collection(CLASSES)
+        .doc(classCode)
+        .delete()
+        .then(() => {
+            setSeletedClassCode(null);
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
+}
+
+export {
+    handleClassSectionData,
+    getClassList,
+    filterCommonClassCode,
+    deleteClass,
+};

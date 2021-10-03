@@ -6,6 +6,7 @@ import CreateClassForm from "./CreateClassForm";
 import {
     filterCommonClassCode,
     getClassList,
+    deleteClass,
 } from "../dbFunctions/handleClassSectionData";
 import CreateLessonForm from "./CreateLessonForm";
 import {
@@ -35,6 +36,15 @@ function ClassSection({
         }
     }, [selectedClassCode]);
 
+    const handleEditClass = () => {
+        alert("edit");
+    };
+
+    const handleDeleteClass = () => {
+        deleteClass(selectedClassCode, setSeletedClassCode);
+        getClassList(setClassList); // Get class list again.
+    };
+
     const handlePublish = () => {
         handlePublishLesson(selectedClassCode, selectedLessonId);
     };
@@ -58,6 +68,18 @@ function ClassSection({
         <Section>
             <ClassesContainer>
                 <SectionHeading>Classes</SectionHeading>
+                {selectedClassCode && (
+                    <>
+                        <RightButtonsContainer>
+                            <EditButton onClick={handleEditClass}>
+                                Edit
+                            </EditButton>
+                            <DeleteButton onClick={handleDeleteClass}>
+                                Delete
+                            </DeleteButton>
+                        </RightButtonsContainer>
+                    </>
+                )}
 
                 <ClassListContainer>
                     <ClassList>
@@ -150,6 +172,7 @@ const ClassesContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #965dd4;
+    position: relative;
 `;
 
 const ClassListContainer = styled.div`
@@ -193,7 +216,7 @@ const PublishButton = styled.button`
 
 const RightButtonsContainer = styled.div`
     position: absolute;
-    top: 0.4rem;
+    top: 0.5rem;
     right: 0.4rem;
     border-radius: 0.5rem;
 `;
