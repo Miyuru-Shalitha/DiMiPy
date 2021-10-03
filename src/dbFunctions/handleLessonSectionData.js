@@ -40,7 +40,7 @@ function getLessonList(commonClassCode, setLessonList) {
         .catch((err) => alert(err.message));
 }
 
-function deleteLesson(classCode, lessonId, setLessonList) {
+function deleteLesson(classCode, lessonId, setLessonList, setSelectedLessonId) {
     const commonClassCode = filterCommonClassCode(classCode);
     db.collection(LESSON_SERIES)
         .doc(commonClassCode)
@@ -50,6 +50,7 @@ function deleteLesson(classCode, lessonId, setLessonList) {
         .then(() => {
             // Get class list again.
             getLessonList(commonClassCode, setLessonList);
+            setSelectedLessonId(null);
         })
         .catch((err) => {
             alert(err.message);

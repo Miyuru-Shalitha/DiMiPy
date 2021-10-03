@@ -43,7 +43,12 @@ function ClassSection({
 
     const handleDeleteLesson = () => {
         if (videoCount === 0) {
-            deleteLesson(selectedClassCode, selectedLessonId, setLessonList);
+            deleteLesson(
+                selectedClassCode,
+                selectedLessonId,
+                setLessonList,
+                setSelectedLessonId
+            );
         } else {
             alert("This lesson is not empty!");
         }
