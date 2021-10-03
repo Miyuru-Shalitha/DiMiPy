@@ -20,11 +20,11 @@ code {
 }
 
 /* TEST */
-@media only screen and (max-width: 900px) {
+/* @media only screen and (max-width: 900px) {
     html {
         font-size: 50%;
     }
-}
+} */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
