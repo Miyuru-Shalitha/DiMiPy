@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useHistory } from "react-router";
 import Authorize from "./components/Authorize";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";

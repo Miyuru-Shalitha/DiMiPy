@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ChatBox from "./ChatBox";
 import sendPublicMessage from "../dbFunctions/sendPublicMessage";
 import getPublicMessages from "../dbFunctions/getPublicMessages";
-import StudentPrivateChatSection from "./StudentPrivateChatSection";
 
 function ChatSection({ classData, setShowPrivateChat }) {
     const [message, setMessage] = useState("");

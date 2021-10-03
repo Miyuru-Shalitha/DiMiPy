@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { filterCommonClassCode } from "../dbFunctions/handleClassSectionData";
 import { getPublishedLesson } from "../dbFunctions/handlePublishLesson";
-import { db } from "../firebase";
 
 function ClassListItem({ classCode, selectedClassCode, setSeletedClassCode }) {
     const [lessonName, setLessonName] = useState("");

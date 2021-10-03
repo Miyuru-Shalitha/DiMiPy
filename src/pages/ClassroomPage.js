@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ChatSection from "../components/ChatSection";
-import LogoutButton from "../components/LogoutButton";
 import TitleBar from "../components/TitleBar";
 import VideoPlayer from "../components/VideoPlayer";
 import { setClassroomData } from "../dbFunctions/setClassroomData";
 import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import { getLesson } from "../dbFunctions/getLesson";
 import StudentPrivateChatSection from "../components/StudentPrivateChatSection";
 

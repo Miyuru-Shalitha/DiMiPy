@@ -2,7 +2,6 @@ import Divider from "@material-ui/core/Divider";
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import ChatBox from "./ChatBox";
-import getPublicMessages from "../dbFunctions/getPublicMessages";
 import sendPrivateMessage from "../dbFunctions/sendPrivateMessage";
 import { auth } from "../firebase";
 import getPrivateMessages from "../dbFunctions/getPrivateMessages";
