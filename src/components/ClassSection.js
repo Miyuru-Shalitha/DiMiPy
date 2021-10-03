@@ -9,8 +9,8 @@ import {
 } from "../dbFunctions/handleClassSectionData";
 import CreateLessonForm from "./CreateLessonForm";
 import { getLessonList } from "../dbFunctions/handleLessonSectionData";
-import { db } from "../firebase";
 import { handlePublishLesson } from "../dbFunctions/handlePublishLesson";
+import { db } from "../firebase";
 
 function ClassSection({
     selectedClassCode,
@@ -34,6 +34,14 @@ function ClassSection({
 
     const handlePublish = () => {
         handlePublishLesson(selectedClassCode, selectedLessonId);
+    };
+
+    const handleEditLesson = () => {};
+
+    const handleDeleteLesson = () => {
+        const commonClassCode = filterCommonClassCode(selectedClassCode);
+        // db.collection("lessonSeries").doc(commonClassCode).lessons(selectedLessonId)
+        // .get()
     };
 
     return (
@@ -70,9 +78,20 @@ function ClassSection({
             <LessonsContainer>
                 <SectionHeading>Lessons</SectionHeading>
                 {selectedLessonId && (
-                    <PublishButton onClick={handlePublish}>
-                        Publish
-                    </PublishButton>
+                    <>
+                        <PublishButton onClick={handlePublish}>
+                            Publish
+                        </PublishButton>
+
+                        <RightButtonsContainer>
+                            <EditButton onClick={handleEditLesson}>
+                                Edit
+                            </EditButton>
+                            <DeleteButton onClick={handleDeleteLesson}>
+                                Delete
+                            </DeleteButton>
+                        </RightButtonsContainer>
+                    </>
                 )}
 
                 <LessonListContainer>
@@ -148,6 +167,51 @@ const PublishButton = styled.button`
     border-radius: 0.5rem;
     border: none;
     padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+    }
+`;
+
+const RightButtonsContainer = styled.div`
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    border-radius: 0.5rem;
+`;
+
+const EditButton = styled.button`
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: #79f77d;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+    }
+`;
+
+const DeleteButton = styled.button`
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #f77979;
     cursor: pointer;
     transition: all 0.2s;
 

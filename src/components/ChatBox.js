@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ADMIN_ROUTE } from "../constants/routes";
 import { deleteChat, deletePrivateChat } from "../dbFunctions/deleteChat";
 import getUserDataFromUserId from "../dbFunctions/getUserDataFromUserId";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
 function ChatBox({ chatId, chatData, classCode, studentId = null, isPrivate }) {

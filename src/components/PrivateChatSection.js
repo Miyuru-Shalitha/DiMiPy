@@ -4,7 +4,6 @@ import getPrivateMessages from "../dbFunctions/getPrivateMessages";
 import { handleStudentsSectionData } from "../dbFunctions/handleStudentsSectionData";
 import ChatBox from "./ChatBox";
 import SendPrivateMessageForm from "./SendPrivateMessageForm";
-import SendPublicMessageForm from "./SendPublicMessageForm";
 import StudentListItem from "./StudentListItem";
 
 function PrivateChatSection({ selectedClassCode }) {

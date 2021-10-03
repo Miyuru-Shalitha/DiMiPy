@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { filterCommonClassCode } from "../dbFunctions/handleClassSectionData";
-import { handleVideoSectionData } from "../dbFunctions/handleVideoSectionData";
-import { db } from "../firebase";
+import {
+    deleteVideo,
+    handleVideoSectionData,
+} from "../dbFunctions/handleVideoSectionData";
+import { db, storage } from "../firebase";
 import UploadVideoForm from "./UploadVideoForm";
 import VideoListItem from "./VideoListItem";
 
@@ -24,10 +27,34 @@ function VideosSection({ selectedClassCode, selectedLessonId }) {
         }
     }, [selectedClassCode, selectedLessonId]);
 
+    const handleEditLesson = () => {};
+
+    const handleDeleteLesson = () => {
+        deleteVideo(
+            selectedClassCode,
+            selectedLessonId,
+            selectedVideoId,
+            setVideoList,
+            setSelectedVideoId
+        );
+    };
+
     return (
         <Section>
             <VideosContainer>
                 <SectionHeading>Videos</SectionHeading>
+                {selectedVideoId && (
+                    <>
+                        <RightButtonsContainer>
+                            <EditButton onClick={handleEditLesson}>
+                                Edit
+                            </EditButton>
+                            <DeleteButton onClick={handleDeleteLesson}>
+                                Delete
+                            </DeleteButton>
+                        </RightButtonsContainer>
+                    </>
+                )}
 
                 <VideoListContainer>
                     <VideoList>
@@ -97,6 +124,52 @@ const VideosContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #72f542;
+    position: relative;
+`;
+
+const RightButtonsContainer = styled.div`
+    position: absolute;
+    top: 0.5rem;
+    right: 0.4rem;
+    border-radius: 0.5rem;
+`;
+
+const EditButton = styled.button`
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: #79f77d;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+    }
+`;
+
+const DeleteButton = styled.button`
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #f77979;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+    }
 `;
 
 const VideoListContainer = styled.div`
