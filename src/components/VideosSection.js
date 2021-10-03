@@ -26,7 +26,9 @@ function VideosSection({ selectedClassCode, selectedLessonId, setVideoCount }) {
         }
     }, [selectedClassCode, selectedLessonId]);
 
-    const handleEditLesson = () => {};
+    const handleEditLesson = () => {
+        alert("Edit button functionality is comming soon! 😁");
+    };
 
     const handleDeleteLesson = () => {
         deleteVideo(

@@ -60,11 +60,21 @@ function filterCommonClassCode(newClassCode) {
 }
 
 function deleteClass(classCode, setSeletedClassCode) {
+    const commonClassCode = filterCommonClassCode(classCode);
+
     db.collection(CLASSES)
         .doc(classCode)
         .delete()
         .then(() => {
-            setSeletedClassCode(null);
+            db.collection(LESSON_SERIES)
+                .doc(commonClassCode)
+                .delete()
+                .then(() => {
+                    setSeletedClassCode(null);
+                })
+                .catch((err) => {
+                    alert(err.message);
+                });
         })
         .catch((err) => {
             alert(err.message);

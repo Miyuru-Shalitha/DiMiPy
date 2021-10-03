@@ -37,7 +37,7 @@ function ClassSection({
     }, [selectedClassCode]);
 
     const handleEditClass = () => {
-        alert("edit");
+        alert("Edit button functionality is comming soon! 😁");
     };
 
     const handleDeleteClass = () => {
@@ -49,7 +49,9 @@ function ClassSection({
         handlePublishLesson(selectedClassCode, selectedLessonId);
     };
 
-    const handleEditLesson = () => {};
+    const handleEditLesson = () => {
+        alert("Edit button functionality is comming soon! 😁");
+    };
 
     const handleDeleteLesson = () => {
         if (videoCount === 0) {

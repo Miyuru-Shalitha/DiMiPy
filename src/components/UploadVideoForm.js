@@ -95,7 +95,7 @@ function UploadVideoForm({
             />
             {video && (
                 <>
-                    <input
+                    <VideoTitleInput
                         type="text"
                         onChange={(e) => {
                             setVideoTitle(e.target.value);
@@ -103,7 +103,7 @@ function UploadVideoForm({
                         placeholder="Enter video title"
                         value={videoTitle}
                     />
-                    <input
+                    <QuestionsCountInput
                         type="number"
                         placeholder="Enter question count"
                         onChange={(e) => {
@@ -113,8 +113,10 @@ function UploadVideoForm({
                     />
                 </>
             )}
-            {video && <progress value={progress} max="100" />}
-            {video && <button onClick={handleUploadVideo}>Upload</button>}
+            {video && <ProgressBar value={progress} max="100" />}
+            {video && (
+                <UploadButton onClick={handleUploadVideo}>Upload</UploadButton>
+            )}
             {/* <CreateButton type="submit">Create</CreateButton> */}
         </Container>
     );
@@ -124,7 +126,10 @@ export default UploadVideoForm;
 
 const Container = styled.form`
     padding: 0.5rem;
+
     display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const VideoInput = styled.input`
@@ -135,10 +140,31 @@ const VideoInput = styled.input`
     border: none;
 `;
 
-const CreateButton = styled.button`
+const VideoTitleInput = styled.input`
+    width: 95%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    border: none;
+`;
+
+const QuestionsCountInput = styled.input`
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    max-width: 5rem;
+    border: none;
+`;
+
+const ProgressBar = styled.progress`
+    width: 100%;
+`;
+
+const UploadButton = styled.button`
     border-radius: 0.5rem;
     border: none;
-    padding: 0 0.5rem;
+    margin-top: 0.2rem;
+    padding: 0.5rem;
     cursor: pointer;
     transition: all 0.2s;
 
