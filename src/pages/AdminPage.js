@@ -44,4 +44,9 @@ const Container = styled.div``;
 
 const BodyContainer = styled.div`
     display: flex;
+
+    /* TEST */
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
