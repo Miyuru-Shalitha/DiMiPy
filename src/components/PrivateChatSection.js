@@ -63,7 +63,13 @@ function PrivateChatSection({ selectedClassCode }) {
                     <ChatList>
                         {chat &&
                             chat.map(({ chatId, chat }) => (
-                                <ChatBox key={chatId} chatData={chat} />
+                                <ChatBox
+                                    key={chatId}
+                                    chatId={chatId}
+                                    chatData={chat}
+                                    classCode={selectedClassCode}
+                                    isPrivate={true}
+                                />
                             ))}
                     </ChatList>
                 </ChatListContainer>

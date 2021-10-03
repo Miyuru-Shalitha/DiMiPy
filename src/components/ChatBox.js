@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ADMIN_ROUTE } from "../constants/routes";
+import { deleteChat, deletePrivateChat } from "../dbFunctions/deleteChat";
 import getUserDataFromUserId from "../dbFunctions/getUserDataFromUserId";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
-function ChatBox({ chatData }) {
+function ChatBox({ chatId, chatData, classCode, isPrivate }) {
     const [chatUserData, setChatUserData] = useState("");
 
     useEffect(() => {
@@ -15,6 +17,15 @@ function ChatBox({ chatData }) {
             })
             .catch((err) => alert(err.message));
     }, []);
+
+    const handleDeleteChat = () => {
+        if (!isPrivate) {
+            deleteChat(classCode, chatId);
+        } else {
+            deletePrivateChat(chatData.userId, chatId);
+        }
+    };
+
     return (
         <>
             {chatData.userId === auth?.currentUser?.uid ? (
@@ -32,7 +43,9 @@ function ChatBox({ chatData }) {
                         {chatUserData?.username}
                     </UserChatUsername>
 
-                    <UserDeleteButton>X</UserDeleteButton>
+                    <UserDeleteButton onClick={handleDeleteChat}>
+                        X
+                    </UserDeleteButton>
                 </UserContainer>
             ) : (
                 <Container>
@@ -47,7 +60,11 @@ function ChatBox({ chatData }) {
                     <ChatText>{chatData.message}</ChatText>
                     <ChatUsername>{chatUserData?.username}</ChatUsername>
 
-                    <DeleteButton>X</DeleteButton>
+                    {window.location.pathname === ADMIN_ROUTE && (
+                        <DeleteButton onClick={handleDeleteChat}>
+                            X
+                        </DeleteButton>
+                    )}
                 </Container>
             )}
         </>

@@ -41,7 +41,13 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
             <ChatContainer>
                 {chat &&
                     chat.map(({ chatId, chat }) => (
-                        <ChatBox key={chatId} chatData={chat} />
+                        <ChatBox
+                            key={chatId}
+                            chatId={chatId}
+                            chatData={chat}
+                            classCode={classData?.classCode}
+                            isPrivate={true}
+                        />
                     ))}
             </ChatContainer>
 
