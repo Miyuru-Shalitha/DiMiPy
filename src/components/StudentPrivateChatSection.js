@@ -35,7 +35,7 @@ function StudentPrivateChatSection({ classData, setShowPrivateChat }) {
                     setShowPrivateChat(false);
                 }}
             >
-                Show Private Chat Section
+                Show Public Chat Section
             </button>
 
             <ChatContainer>

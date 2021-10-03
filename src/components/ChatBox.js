@@ -5,10 +5,7 @@ import { auth } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 
 function ChatBox({ chatData }) {
-    const [chatUserData, setChatUserData] = useState({
-        username: "",
-        profilePhoto: "",
-    });
+    const [chatUserData, setChatUserData] = useState("");
 
     useEffect(() => {
         getUserDataFromUserId(chatData.userId)
@@ -18,7 +15,6 @@ function ChatBox({ chatData }) {
             })
             .catch((err) => alert(err.message));
     }, []);
-
     return (
         <>
             {chatData.userId === auth?.currentUser?.uid ? (
@@ -26,26 +22,32 @@ function ChatBox({ chatData }) {
                     <UserFallbackAvatarContainer>
                         <FallbackAvatar
                             size="small"
-                            username={chatUserData.username}
-                            profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+                            username={chatUserData?.username}
+                            profilePhotoURL={chatUserData?.profileAvatarURL}
                         />
                     </UserFallbackAvatarContainer>
 
                     <UserChatText>{chatData.message}</UserChatText>
-                    <UserChatUsername>{chatUserData.username}</UserChatUsername>
+                    <UserChatUsername>
+                        {chatUserData?.username}
+                    </UserChatUsername>
+
+                    <UserDeleteButton>X</UserDeleteButton>
                 </UserContainer>
             ) : (
                 <Container>
                     <FallbackAvatarContainer>
                         <FallbackAvatar
                             size="small"
-                            username={chatUserData.username}
-                            profilePhotoURL="https://lh3.googleusercontent.com/a-/AOh14GjIk7WKI6OgEtqZE1uIXK7r7H7bJNwyEOPmVqLK=s96-c"
+                            username={chatUserData?.username}
+                            profilePhotoURL={chatUserData?.profileAvatarURL}
                         />
                     </FallbackAvatarContainer>
 
                     <ChatText>{chatData.message}</ChatText>
-                    <ChatUsername>{chatUserData.username}</ChatUsername>
+                    <ChatUsername>{chatUserData?.username}</ChatUsername>
+
+                    <DeleteButton>X</DeleteButton>
                 </Container>
             )}
         </>
@@ -72,12 +74,41 @@ const ChatText = styled.span`
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: #fff;
+    max-width: 10rem;
+    word-wrap: break-word;
 `;
 
 const ChatUsername = styled.h6`
     position: absolute;
     top: 0;
     left: 2.5rem;
+`;
+
+const DeleteButton = styled.button`
+    position: absolute;
+    left: 0;
+    bottom: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: #cc5656;
+        color: #fff;
+        box-shadow: 0.16rem 0.16rem 0.64rem rgba(0, 0, 0, 0.5);
+    }
+
+    &:active {
+        background-color: #ff0000;
+        transform: translateY(1px);
+        color: #fff;
+        box-shadow: 0.16rem 0.16rem 0.32rem rgba(0, 0, 0, 0.5);
+    }
 `;
 
 //////////////////////////////////////////////////
@@ -100,10 +131,39 @@ const UserChatText = styled.span`
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: #fff;
+    max-width: 10rem;
+    word-wrap: break-word;
 `;
 
 const UserChatUsername = styled.h6`
     position: absolute;
     top: 0;
     right: 2.5rem;
+`;
+
+const UserDeleteButton = styled.button`
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: #cc5656;
+        color: #fff;
+        box-shadow: 0.16rem 0.16rem 0.64rem rgba(0, 0, 0, 0.5);
+    }
+
+    &:active {
+        background-color: #ff0000;
+        transform: translateY(1px);
+        color: #fff;
+        box-shadow: 0.16rem 0.16rem 0.32rem rgba(0, 0, 0, 0.5);
+    }
 `;
