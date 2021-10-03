@@ -9,6 +9,7 @@ import VideosSection from "../components/VideosSection";
 function AdminPage() {
     const [selectedClassCode, setSeletedClassCode] = useState(null);
     const [selectedLessonId, setSelectedLessonId] = useState(null);
+    const [videoCount, setVideoCount] = useState(0);
 
     return (
         <Container>
@@ -20,11 +21,13 @@ function AdminPage() {
                     setSeletedClassCode={setSeletedClassCode}
                     selectedLessonId={selectedLessonId}
                     setSelectedLessonId={setSelectedLessonId}
+                    videoCount={videoCount}
                 />
 
                 <VideosSection
                     selectedClassCode={selectedClassCode}
                     selectedLessonId={selectedLessonId}
+                    setVideoCount={setVideoCount}
                 />
 
                 <PrivateChatSection selectedClassCode={selectedClassCode} />

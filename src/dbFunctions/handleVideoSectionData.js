@@ -42,29 +42,26 @@ function deleteVideo(
     setSelectedVideoId
 ) {
     const commonClassCode = filterCommonClassCode(classCode);
-    db.collection(LESSON_SERIES)
+    const videoDocRef = db
+        .collection(LESSON_SERIES)
         .doc(commonClassCode)
         .collection(LESSONS)
         .doc(lessonId)
         .collection(VIDEOS)
-        .doc(videoId)
+        .doc(videoId);
+
+    videoDocRef
         .get()
         .then((doc) => {
             const videoUrl = doc.data().videoUrl;
             const videoRef = storage.refFromURL(videoUrl);
-            videoRef.delete().then(() => {
-                console.log("Video deleted from storage");
 
-                db.collection("lessonSeries")
-                    .doc(commonClassCode)
-                    .collection("lessons")
-                    .doc(lessonId)
-                    .collection("videos")
-                    .doc(videoId)
+            // Delete video from storage.
+            videoRef.delete().then(() => {
+                // Delete video data from database.
+                videoDocRef
                     .delete()
                     .then(() => {
-                        console.log("Video data deleted from db");
-
                         // Get videos again.
                         handleVideoSectionData(
                             commonClassCode,

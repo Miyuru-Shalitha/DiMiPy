@@ -8,15 +8,18 @@ import {
     getClassList,
 } from "../dbFunctions/handleClassSectionData";
 import CreateLessonForm from "./CreateLessonForm";
-import { getLessonList } from "../dbFunctions/handleLessonSectionData";
+import {
+    deleteLesson,
+    getLessonList,
+} from "../dbFunctions/handleLessonSectionData";
 import { handlePublishLesson } from "../dbFunctions/handlePublishLesson";
-import { db } from "../firebase";
 
 function ClassSection({
     selectedClassCode,
     setSeletedClassCode,
     selectedLessonId,
     setSelectedLessonId,
+    videoCount,
 }) {
     const [classList, setClassList] = useState([]);
     const [lessonList, setLessonList] = useState([]);
@@ -39,9 +42,11 @@ function ClassSection({
     const handleEditLesson = () => {};
 
     const handleDeleteLesson = () => {
-        const commonClassCode = filterCommonClassCode(selectedClassCode);
-        // db.collection("lessonSeries").doc(commonClassCode).lessons(selectedLessonId)
-        // .get()
+        if (videoCount === 0) {
+            deleteLesson(selectedClassCode, selectedLessonId, setLessonList);
+        } else {
+            alert("This lesson is not empty!");
+        }
     };
 
     return (

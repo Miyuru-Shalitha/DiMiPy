@@ -1,6 +1,7 @@
 import { LESSONS, LESSON_SERIES, TIMESTAMP } from "../constants/dbConsts";
 import { db } from "../firebase";
 import firebase from "firebase";
+import { filterCommonClassCode } from "./handleClassSectionData";
 
 const lessonSeriesRef = db.collection(LESSON_SERIES);
 
@@ -39,4 +40,20 @@ function getLessonList(commonClassCode, setLessonList) {
         .catch((err) => alert(err.message));
 }
 
-export { handleLessonSectionData, getLessonList };
+function deleteLesson(classCode, lessonId, setLessonList) {
+    const commonClassCode = filterCommonClassCode(classCode);
+    db.collection(LESSON_SERIES)
+        .doc(commonClassCode)
+        .collection(LESSONS)
+        .doc(lessonId)
+        .delete()
+        .then(() => {
+            // Get class list again.
+            getLessonList(commonClassCode, setLessonList);
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
+}
+
+export { handleLessonSectionData, getLessonList, deleteLesson };

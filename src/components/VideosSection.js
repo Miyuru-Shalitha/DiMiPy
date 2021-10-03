@@ -6,11 +6,10 @@ import {
     deleteVideo,
     handleVideoSectionData,
 } from "../dbFunctions/handleVideoSectionData";
-import { db, storage } from "../firebase";
 import UploadVideoForm from "./UploadVideoForm";
 import VideoListItem from "./VideoListItem";
 
-function VideosSection({ selectedClassCode, selectedLessonId }) {
+function VideosSection({ selectedClassCode, selectedLessonId, setVideoCount }) {
     const [videoList, setVideoList] = useState([]);
     const [preview, setPreview] = useState("");
     const [selectedVideoId, setSelectedVideoId] = useState(null); // For videoItem's backgroundColor change when it is clicked.
@@ -38,6 +37,10 @@ function VideosSection({ selectedClassCode, selectedLessonId }) {
             setSelectedVideoId
         );
     };
+
+    useEffect(() => {
+        setVideoCount(videoList.length);
+    }, [videoList]);
 
     return (
         <Section>

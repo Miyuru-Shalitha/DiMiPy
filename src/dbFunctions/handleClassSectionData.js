@@ -1,4 +1,9 @@
-import { CLASSES, LESSON_SERIES, WELCOME } from "../constants/dbConsts";
+import {
+    CLASSES,
+    LESSONS,
+    LESSON_SERIES,
+    WELCOME,
+} from "../constants/dbConsts";
 import { db } from "../firebase";
 import firebase from "firebase";
 
