@@ -81,7 +81,13 @@ export default ChatBox;
 const Container = styled.div`
     padding: 1rem;
     position: relative;
+
     display: flex;
+
+    /* TEST */
+    @media only screen and (max-width: 900px) {
+        padding: 2.5rem;
+    }
 `;
 
 const FallbackAvatarContainer = styled.div`

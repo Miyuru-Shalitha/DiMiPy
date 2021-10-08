@@ -119,6 +119,11 @@ const ChatSection = styled.section`
 
     display: flex;
     flex-direction: column;
+
+    /* TEST */
+    @media only screen and (max-width: 900px) {
+        font-size: 2rem;
+    }
 `;
 
 const ChatListContainer = styled.div`

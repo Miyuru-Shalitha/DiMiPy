@@ -121,6 +121,11 @@ const BodyContainer = styled.div`
 
     position: relative;
 
+    /* TEST */
+    @media only screen and (max-width: 900px) {
+        font-size: 2rem;
+    }
+
     @media (max-width: 600px) {
         flex-direction: column;
     }
