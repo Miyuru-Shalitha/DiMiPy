@@ -1,5 +1,8 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/auth";
 import "firebase/storage";
+import "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -20,4 +23,7 @@ const db = app.firestore();
 const auth = app.auth();
 const storage = app.storage();
 
+// const t = firebase.database.ServerValue.TIMESTAMP;
+// console.log(t);
+// console.log(firebase.firestore.FieldValue.serverTimestamp());
 export { db, auth, storage };
