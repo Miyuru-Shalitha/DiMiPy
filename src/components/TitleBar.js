@@ -10,7 +10,7 @@ function TitleBar() {
       <Container>
         <TitleTextContainer>
           <TitleText>
-            භෞතික විද්‍යාවේ <DigitalText>Digital</DigitalText> මෙහෙයුම.
+            භෞතික විද්‍යාවේ <DigitalText>DIGITAL</DigitalText> මෙහෙයුම.
           </TitleText>
         </TitleTextContainer>
 
