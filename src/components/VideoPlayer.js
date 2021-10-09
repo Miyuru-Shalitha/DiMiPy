@@ -104,7 +104,7 @@ export default VideoPlayer;
 const TimerContainer = styled.div`
   background-color: #000;
   color: #fff;
-  height: 85vh;
+  height: 84vh;
 
   display: flex;
   flex-direction: column;
@@ -113,7 +113,7 @@ const TimerContainer = styled.div`
 
   /* TEST */
   @media only screen and (max-width: 900px) {
-    height: 30vh;
+    height: 93%;
   }
 `;
 
