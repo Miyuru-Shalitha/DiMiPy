@@ -3,8 +3,15 @@ import styled, { keyframes } from "styled-components";
 import { auth } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
 import LogoutButton from "../components/LogoutButton";
+import { useHistory } from "react-router";
 
 function TitleBar() {
+  const history = useHistory("");
+
+  const handleClick = () => {
+    history.push("/profile");
+  };
+
   return (
     <>
       <Container>
@@ -14,10 +21,12 @@ function TitleBar() {
           </TitleText>
         </TitleTextContainer>
 
-        <FallbackAvatar
-          username={auth?.currentUser?.displayName}
-          profilePhotoURL={auth?.currentUser?.photoURL}
-        />
+        <AvatarContainer onClick={handleClick}>
+          <FallbackAvatar
+            username={auth?.currentUser?.displayName}
+            profilePhotoURL={auth?.currentUser?.photoURL}
+          />
+        </AvatarContainer>
       </Container>
 
       <LogoutButton />
@@ -70,4 +79,8 @@ const DigitalTextAnimation = keyframes`
 
 const DigitalText = styled.em`
   animation: ${DigitalTextAnimation} 5s infinite;
+`;
+
+const AvatarContainer = styled.div`
+  cursor: pointer;
 `;
