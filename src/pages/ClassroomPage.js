@@ -10,131 +10,131 @@ import { getLesson } from "../dbFunctions/getLesson";
 import StudentPrivateChatSection from "../components/StudentPrivateChatSection";
 
 function ClassroomPage() {
-    const [classData, setClassData] = useState({
-        year: "",
-        category: "",
-        group: "",
-        classCode: "",
-    });
-    const [lessonId, setLessonId] = useState("");
-    const [lessonTitle, setLessonTitle] = useState("");
-    const [lessonVideos, setLessonVideos] = useState([]);
-    const [showPrivateChat, setShowPrivateChat] = useState(false);
+  const [classData, setClassData] = useState({
+    year: "",
+    category: "",
+    group: "",
+    classCode: "",
+  });
+  const [lessonId, setLessonId] = useState("");
+  const [lessonTitle, setLessonTitle] = useState("");
+  const [lessonVideos, setLessonVideos] = useState([]);
+  const [showPrivateChat, setShowPrivateChat] = useState(false);
 
-    // useEffect(() => {
-    //   if (auth.currentUser) {
-    //     getUserClassroomData(auth.currentUser.uid)
-    //       .then((userClassData) => {
-    //         setClassData({
-    //           year: userClassData.year,
-    //           category: userClassData.category,
-    //           group: userClassData.group,
-    //         });
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     getUserClassroomData(auth.currentUser.uid)
+  //       .then((userClassData) => {
+  //         setClassData({
+  //           year: userClassData.year,
+  //           category: userClassData.category,
+  //           group: userClassData.group,
+  //         });
 
-    //         getClassroomData(userClassData.classCode)
-    //           .then((classData) => {
-    //             setLessonId(classData.lessonId);
-    //           })
-    //           .catch((err) => {
-    //             alert(err.message);
-    //           });
-    //       })
-    //       .catch((err) => {
-    //         alert(err.message);
-    //       });
-    //   }
-    // }, [auth.currentUser]);
+  //         getClassroomData(userClassData.classCode)
+  //           .then((classData) => {
+  //             setLessonId(classData.lessonId);
+  //           })
+  //           .catch((err) => {
+  //             alert(err.message);
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         alert(err.message);
+  //       });
+  //   }
+  // }, [auth.currentUser]);
 
-    useEffect(() => {
-        if (auth.currentUser) {
-            getUserClassroomData(auth.currentUser.uid)
-                .then((userClassData) => {
-                    setClassData({
-                        year: userClassData.year,
-                        category: userClassData.category,
-                        group: userClassData.group,
-                        classCode: userClassData.classCode,
-                    });
+  useEffect(() => {
+    if (auth.currentUser) {
+      getUserClassroomData(auth.currentUser.uid)
+        .then((userClassData) => {
+          setClassData({
+            year: userClassData.year,
+            category: userClassData.category,
+            group: userClassData.group,
+            classCode: userClassData.classCode,
+          });
 
-                    setClassroomData(userClassData.classCode, setLessonId);
-                })
-                .catch((err) => {
-                    alert(err.message);
-                });
-        }
-    }, [auth.currentUser]);
+          setClassroomData(userClassData.classCode, setLessonId);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+  }, [auth.currentUser]);
 
-    useEffect(() => {
-        if (auth.currentUser && classData.classCode.length > 0) {
-            const unsubscribe = getLesson(
-                classData.classCode,
-                setLessonTitle,
-                setLessonVideos
-            );
+  useEffect(() => {
+    if (auth.currentUser && classData.classCode.length > 0) {
+      const unsubscribe = getLesson(
+        classData.classCode,
+        setLessonTitle,
+        setLessonVideos
+      );
 
-            return unsubscribe;
-        }
-    }, [lessonId]);
+      return unsubscribe;
+    }
+  }, [lessonId]);
 
-    return (
-        <Container>
-            <TitleBar />
+  return (
+    <Container>
+      <TitleBar />
 
-            <BodyContainer>
-                <VideoPlayerContainer>
-                    <VideoPlayer videos={lessonVideos} />
-                    {/* <h1>{lessonId}</h1> */}
-                    <h6 style={{ textAlign: "center" }}>
-                        {classData.year} {classData.category} {classData.group}
-                    </h6>
-                </VideoPlayerContainer>
+      <BodyContainer>
+        <VideoPlayerContainer>
+          <VideoPlayer videos={lessonVideos} />
+          {/* <h1>{lessonId}</h1> */}
+          <h6 style={{ textAlign: "center" }}>
+            {classData.year} {classData.category} {classData.group}
+          </h6>
+        </VideoPlayerContainer>
 
-                {showPrivateChat ? (
-                    <StudentPrivateChatSection
-                        classData={classData}
-                        setShowPrivateChat={setShowPrivateChat}
-                    />
-                ) : (
-                    <ChatSection
-                        classData={classData}
-                        setShowPrivateChat={setShowPrivateChat}
-                    />
-                )}
-            </BodyContainer>
-        </Container>
-    );
+        {showPrivateChat ? (
+          <StudentPrivateChatSection
+            classData={classData}
+            setShowPrivateChat={setShowPrivateChat}
+          />
+        ) : (
+          <ChatSection
+            classData={classData}
+            setShowPrivateChat={setShowPrivateChat}
+          />
+        )}
+      </BodyContainer>
+    </Container>
+  );
 }
 
 export default ClassroomPage;
 
 const Container = styled.div`
-    /* overflow: hidden; */
-    @media (max-width: 600px) {
-        overflow: hidden;
-    }
+  /* overflow: hidden; */
+  @media (max-width: 600px) {
+    overflow: hidden;
+  }
 `;
 
 const BodyContainer = styled.div`
-    display: flex;
-    /* height: 100%; */
-    height: 92vh;
+  display: flex;
+  /* height: 100%; */
+  height: 92vh;
 
-    position: relative;
+  position: relative;
 
-    /* TEST */
-    @media only screen and (max-width: 900px) {
-        font-size: 2rem;
-    }
+  /* TEST */
+  /* @media only screen and (max-width: 900px) {
+    font-size: 2rem;
+  } */
 
-    @media (max-width: 600px) {
-        flex-direction: column;
-    }
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const VideoPlayerContainer = styled.div`
-    flex: 3;
+  flex: 3;
 `;
 
 const ChatSectionContainer = styled.div`
-    flex: 1;
+  flex: 1;
 `;
