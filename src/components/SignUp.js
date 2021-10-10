@@ -223,7 +223,7 @@ function SignUp() {
 export default SignUp;
 
 const SignUpContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
