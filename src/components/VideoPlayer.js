@@ -88,8 +88,8 @@ function VideoPlayer({ videos }) {
         <TimerContainer>
           <Timer>
             {minutes < 10 && "0"}
-            {minutes}min {seconds < 10 && "0"}
-            {seconds}s {milliseconds < 10 && "0"}
+            {minutes}min : {seconds < 10 && "0"}
+            {seconds}s : {milliseconds < 10 && "0"}
             {milliseconds}ms
           </Timer>
           <QuestionNo>Question: {questionNum}</QuestionNo>
