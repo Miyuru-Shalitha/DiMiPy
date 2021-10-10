@@ -2,7 +2,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { auth } from "../firebase";
 import FallbackAvatar from "./material-components/FallbackAvatar";
-import LogoutButton from "../components/LogoutButton";
 import { useHistory } from "react-router";
 
 function TitleBar() {
@@ -28,8 +27,6 @@ function TitleBar() {
           />
         </AvatarContainer>
       </Container>
-
-      <LogoutButton />
     </>
   );
 }
@@ -45,14 +42,20 @@ const Container = styled.div`
   background-image: linear-gradient(to right, #66b300, #66b3ff);
 
   /* TEST */
-  @media only screen and (max-width: 900px) {
+  /* @media only screen and (max-width: 900px) {
     font-size: 60%;
+  } */
+
+  @media only screen and (max-width: 31.25em) {
+    /* 500px */
+    font-size: 70%;
   }
 `;
 
 const TitleTextContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 `;
 
 const TitleText = styled.h1``;

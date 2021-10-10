@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { USERS, USERS_PUBLIC_DATA } from "../constants/dbConsts";
 import { auth, db, storage } from "../firebase";
+import LogoutButton from "../components/LogoutButton";
 
 function ProfilePage() {
   const [profileAvatar, setProfileAvatar] = useState(null);
@@ -192,6 +193,8 @@ function ProfilePage() {
         />
         <button>Save</button>
       </UserDataForm>
+
+      <LogoutButton />
     </Container>
   );
 }

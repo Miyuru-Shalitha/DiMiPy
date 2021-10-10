@@ -66,7 +66,8 @@ const ChatListContainer = styled.div`
   flex-direction: column-reverse;
 
   /* TEST */
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 56.25em) {
+    /* 900px */
     font-size: 2rem;
   }
 `;

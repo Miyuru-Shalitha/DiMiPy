@@ -90,7 +90,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 600px) {
+  @media only screen and (max-width: 37.5em) {
+    /* 600px */
     /* height: 56vh; */
     flex: 0 0 60vh;
   }
@@ -105,7 +106,8 @@ const ChatContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
 
-  @media (max-width: 600px) {
+  @media only screen and (max-width: 37.5em) {
+    /* 600px */
     /* height: 48vh; */
     flex: 0 0 43vh;
   }
