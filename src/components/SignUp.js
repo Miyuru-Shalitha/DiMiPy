@@ -39,7 +39,7 @@ function SignUp() {
   const handleSelectCategory = (category) => {
     setSelectedCategory(category);
 
-    // Set categories defalut values if category RadioButtons not clicked.
+    // Set categories default values if category RadioButtons not clicked.
     if (selectedCategory === THEORY) {
       setSelectedYear(DEFAULT_THEORY_YEAR);
       setSelectedGroup(DEFAULT_THEORY_GROUP);
