@@ -239,6 +239,11 @@ const SignUpForm = styled.form`
   border: 1px solid #999;
   border-radius: 0.2rem;
   box-shadow: 1px 1px 15px 1px #999;
+
+  @media only screen and (max-width: 37.5em) {
+    /* 600px */
+    width: 60%;
+  }
 `;
 
 const RadioGroupContainer = styled.div`
