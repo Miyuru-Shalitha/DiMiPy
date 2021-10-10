@@ -78,6 +78,10 @@ const DigitalTextAnimation = keyframes`
 `;
 
 const DigitalText = styled.em`
+  text-transform: uppercase;
+  @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Play:wght@400;700&display=swap");
+  font-family: "IBM Plex Mono", monospace;
+  font-family: "Play", sans-serif;
   animation: ${DigitalTextAnimation} 5s infinite;
 `;
 
