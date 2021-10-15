@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
@@ -44,31 +44,36 @@ function Login() {
   };
 
   return (
-    <LoginContainer>
-      <LoginForm onSubmit={handleSignIn}>
-        <TextField
-          type="email"
-          label="Email"
-          variant="outlined"
-          onChange={handleUserLoginDetails}
-          value={userLoginDetails.email}
-          name="email"
-        />
-        <TextField
-          type="password"
-          label="Password"
-          variant="outlined"
-          onChange={handleUserLoginDetails}
-          value={userLoginDetails.password}
-          name="password"
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Login
-        </Button>
+    <>
+      <LoginContainer>
+        <LoginForm onSubmit={handleSignIn}>
+          <TextField
+            type="email"
+            label="Email"
+            variant="outlined"
+            onChange={handleUserLoginDetails}
+            value={userLoginDetails.email}
+            name="email"
+          />
+          <TextField
+            type="password"
+            label="Password"
+            variant="outlined"
+            onChange={handleUserLoginDetails}
+            value={userLoginDetails.password}
+            name="password"
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Login
+          </Button>
 
-        <Link to={SIGN_UP_ROUTE}>Sign Up</Link>
-      </LoginForm>
-    </LoginContainer>
+          {/* <Link to={SIGN_UP_ROUTE}>Sign Up</Link> */}
+          <Button variant="outlined" href={SIGN_UP_ROUTE}>
+            Sign Up
+          </Button>
+        </LoginForm>
+      </LoginContainer>
+    </>
   );
 }
 

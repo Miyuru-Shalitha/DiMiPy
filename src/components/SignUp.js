@@ -234,7 +234,9 @@ const SignUpForm = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   width: 30%;
-  height: 70%;
+  /* flex: 0.7 0 30%; */
+  /* height: 70%; */
+  min-height: 80vh;
   padding: 3rem;
   border: 1px solid #999;
   border-radius: 0.2rem;

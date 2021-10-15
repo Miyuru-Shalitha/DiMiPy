@@ -21,7 +21,7 @@ export default function SimpleMenu({
   return (
     <div>
       <Button
-        variant="outlined"
+        variant="contained"
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
