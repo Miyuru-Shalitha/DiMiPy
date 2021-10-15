@@ -34,7 +34,7 @@ function sendPrivateMessage(studentId, message, setMessage) {
     .collection(CHATS_2)
     .add({
       userId: auth.currentUser.uid,
-      // message: message,
+      message: message,
       // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timestamp: new Date().getTime(),
     })
