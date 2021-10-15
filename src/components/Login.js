@@ -90,7 +90,8 @@ const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 50%;
+  /* width: 30%; */
+  flex: 0 0 30%;
   height: 30%;
   padding: 3rem;
   border: 1px solid #999;
@@ -99,6 +100,7 @@ const LoginForm = styled.form`
 
   @media only screen and (max-width: 37.5em) {
     /* 600px */
-    width: 60%;
+    /* width: 60%; */
+    flex: 0 0 60%;
   }
 `;
