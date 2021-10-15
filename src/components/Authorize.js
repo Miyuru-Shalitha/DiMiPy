@@ -50,7 +50,7 @@ function Authorize() {
       <AuthorizeForm onSubmit={handleAuthorize}>
         <TextField
           type="password"
-          label="Secret Key"
+          label="Enter Class Card Code"
           variant="outlined"
           onChange={(e) => {
             setUserSecretKey(e.target.value);
