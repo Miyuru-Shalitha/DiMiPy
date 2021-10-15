@@ -1,6 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import RadioButtonsGroup from "./material-components/RadioButtonsGroup";
 import SimpleMenu from "./material-components/SimpleMenu";
 import { useHistory } from "react-router";
@@ -31,6 +31,8 @@ function SignUp() {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [selectedYear, setSelectedYear] = React.useState(null);
   const [selectedGroup, setSelectedGroup] = React.useState(null);
+
+  const [showInstructions, setShowInstructions] = React.useState(false);
 
   const history = useHistory("");
 
@@ -147,9 +149,28 @@ function SignUp() {
     }
   };
 
+  const handleShowInstructions = () => {
+    setShowInstructions(true);
+
+    setTimeout(() => {
+      setShowInstructions(false);
+    }, 10000);
+  };
+
   return (
     <SignUpContainer>
+      {showInstructions && (
+        <InstructionText>
+          <h3>
+            ඔබගේ පංතිය තෝරාගන්න නිවැරදිව ලිපිනය ඇතුලු කිරීම ඔබේ වගකීමකි. නිබන්ධන
+            එවීමේදී මෙම ලිපිනය භාවිතා වන බව සලකන්න.
+          </h3>
+        </InstructionText>
+      )}
+
       <SignUpForm onSubmit={handleSignUp}>
+        <HelpButton onClick={handleShowInstructions}>Help</HelpButton>
+
         <TextField
           type="text"
           label="Name: Eg: A.B.Lahiru Ekanayaka"
@@ -229,6 +250,39 @@ const SignUpContainer = styled.div`
   align-items: center;
 `;
 
+const animationInFromTop = keyframes`
+  0% {
+    transform: translateY(-100%);
+  }
+
+  5% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  95% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+`;
+
+const InstructionText = styled.div`
+  position: absolute;
+  top: 0;
+
+  text-align: center;
+  background-color: #ffff00;
+  padding: 0.5rem;
+  z-index: 100;
+  animation: ${animationInFromTop} 10s ease-out;
+`;
+
 const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -242,9 +296,33 @@ const SignUpForm = styled.form`
   border-radius: 0.2rem;
   box-shadow: 1px 1px 15px 1px #999;
 
+  position: relative;
+
   @media only screen and (max-width: 37.5em) {
     /* 600px */
     width: 60%;
+  }
+`;
+
+const HelpButton = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: #fff647;
+  color: #575200;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem rgba(89, 89, 89, 0.5);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #eee212;
+  }
+
+  &:active {
+    transform: translateY(0.16rem);
+    box-shadow: 0 0 0.2rem rgba(89, 89, 89, 0.5);
   }
 `;
 

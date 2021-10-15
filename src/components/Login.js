@@ -45,6 +45,14 @@ function Login() {
 
   return (
     <>
+      <InstructionText>
+        <h3>
+          ඔබ මෙම වෙබ් අඩවියේ ලියාපදිංචි වී ඇත් නම් ලබාදුන් Email සහ Password
+          යොදා LOGIN මත click කර ඇතුලු වන්න ඔබ මෙම වෙබ් අඩවියේ ලියාපදිංචි වී
+          නොමැති නම් Sign Up මත click කර ලියාපදිංචි වන්න.
+        </h3>
+      </InstructionText>
+
       <LoginContainer>
         <LoginForm onSubmit={handleSignIn}>
           <TextField
@@ -72,6 +80,14 @@ function Login() {
             Sign Up
           </Button>
         </LoginForm>
+
+        {/* <InstructionText>
+          <h3>
+            ඔබ මෙම වෙබ් අඩවියේ ලියාපදිංචි වී ඇත් නම් ලබාදුන් Email සහ Password
+            යොදා LOGIN මත click කර ඇතුලු වන්න ඔබ මෙම වෙබ් අඩවියේ ලියාපදිංචි වී
+            නොමැති නම් Sign Up මත click කර ලියාපදිංචි වන්න.
+          </h3>
+        </InstructionText> */}
       </LoginContainer>
     </>
   );
@@ -98,9 +114,22 @@ const LoginForm = styled.form`
   border-radius: 0.2rem;
   box-shadow: 1px 1px 15px 1px #999;
 
+  position: relative;
+
   @media only screen and (max-width: 37.5em) {
     /* 600px */
     /* width: 60%; */
     flex: 0 0 60%;
   }
+`;
+
+const InstructionText = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #ffff00;
+  color: #614e00;
+  padding: 1rem;
+  z-index: 100;
 `;

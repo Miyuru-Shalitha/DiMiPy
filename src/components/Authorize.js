@@ -1,16 +1,26 @@
 import { Button, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+// import { Link } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
 import { CLASSROOM_ROUTE, SIGN_UP_ROUTE } from "../constants/routes";
+import { auth } from "../firebase";
+import LogoCircles from "../assets/logo-circles.svg";
+import LogoRoundedText from "../assets/logo-rounded-text.svg";
 
 function Authorize() {
   const [secretKey, setSecretKey] = useState("123456");
 
   const [userSecretKey, setUserSecretKey] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const history = useHistory("");
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setIsLoggedIn(true);
+    }
+  }, [auth.currentUser]);
 
   const handleAuthorize = (e) => {
     e.preventDefault();
@@ -19,6 +29,21 @@ function Authorize() {
       history.push(CLASSROOM_ROUTE);
     }
   };
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        {!isLoggedIn && (
+          <LoadingContainer>
+            <ImagesContainer>
+              <LoadingImageCircle src={LogoCircles} alt="loading" />
+              <LoadingImageRoundedText src={LogoRoundedText} alt="loading" />
+            </ImagesContainer>
+          </LoadingContainer>
+        )}
+      </>
+    );
+  }
 
   return (
     <AuthorizeContainer>
@@ -37,13 +62,57 @@ function Authorize() {
           Go to classroom
         </Button>
 
-        <Link to={SIGN_UP_ROUTE}>Sign Up</Link>
+        {/* <Link to={SIGN_UP_ROUTE}>Sign Up</Link> */}
       </AuthorizeForm>
     </AuthorizeContainer>
   );
 }
 
 export default Authorize;
+
+const LoadingContainer = styled.div`
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImagesContainer = styled.div`
+  flex: 0 0 20rem;
+  height: 20rem;
+
+  position: relative;
+`;
+
+const LoadingImageCircle = styled.img`
+  width: 20rem;
+  height: 20rem;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const LoadingAnimation = keyframes`
+from {
+  transform: rotate(0);
+}
+to {
+  transform: rotate(360deg);
+}
+`;
+
+const LoadingImageRoundedText = styled.img`
+  width: 20rem;
+  height: 20rem;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  animation: ${LoadingAnimation} 5s linear infinite;
+`;
 
 const AuthorizeContainer = styled.div`
   height: 100vh;
