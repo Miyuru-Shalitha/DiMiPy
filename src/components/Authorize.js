@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 // import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import { CLASSROOM_ROUTE, SIGN_UP_ROUTE } from "../constants/routes";
-import { auth } from "../firebase";
+import { CLASSROOM_ROUTE } from "../constants/routes";
+import { auth, db } from "../firebase";
 import LogoCircles from "../assets/logo-circles.svg";
 import LogoRoundedText from "../assets/logo-rounded-text.svg";
+import { USERS } from "../constants/dbConsts";
 
 function Authorize() {
-  const [secretKey, setSecretKey] = useState("123456");
-
-  const [userSecretKey, setUserSecretKey] = useState("");
+  const [userClassCardCode, setUserClassCardCode] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const history = useHistory("");
@@ -25,8 +24,20 @@ function Authorize() {
   const handleAuthorize = (e) => {
     e.preventDefault();
 
-    if (userSecretKey === secretKey) {
-      history.push(CLASSROOM_ROUTE);
+    const currUser = auth.currentUser;
+
+    if (currUser) {
+      db.collection(USERS)
+        .doc(currUser.uid)
+        .get()
+        .then((doc) => {
+          if (userClassCardCode === doc.data().classCardCode) {
+            history.push(CLASSROOM_ROUTE);
+          }
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
     }
   };
 
@@ -53,9 +64,9 @@ function Authorize() {
           label="Enter Class Card Code"
           variant="outlined"
           onChange={(e) => {
-            setUserSecretKey(e.target.value);
+            setUserClassCardCode(e.target.value);
           }}
-          value={userSecretKey}
+          value={userClassCardCode}
           name="secretKey"
         />
         <Button type="submit" variant="contained" color="primary">
