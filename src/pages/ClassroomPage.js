@@ -5,9 +5,12 @@ import TitleBar from "../components/TitleBar";
 import VideoPlayer from "../components/VideoPlayer";
 import { setClassroomData } from "../dbFunctions/setClassroomData";
 import { getUserClassroomData } from "../dbFunctions/getUserClassroomData";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { getLesson } from "../dbFunctions/getLesson";
 import StudentPrivateChatSection from "../components/StudentPrivateChatSection";
+import { useHistory } from "react-router";
+import { ROOT_ROUTE } from "../constants/routes";
+import { USERS } from "../constants/dbConsts";
 
 function ClassroomPage() {
   const [classData, setClassData] = useState({
@@ -15,11 +18,14 @@ function ClassroomPage() {
     category: "",
     group: "",
     classCode: "",
+    authorized: "",
   });
   const [lessonId, setLessonId] = useState("");
   const [lessonTitle, setLessonTitle] = useState("");
   const [lessonVideos, setLessonVideos] = useState([]);
   const [showPrivateChat, setShowPrivateChat] = useState(false);
+
+  const history = useHistory("");
 
   // useEffect(() => {
   //   if (auth.currentUser) {
@@ -45,18 +51,37 @@ function ClassroomPage() {
   //   }
   // }, [auth.currentUser]);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
-    if (auth.currentUser) {
-      getUserClassroomData(auth.currentUser.uid)
+    const currUser = auth.currentUser;
+
+    if (currUser) {
+      getUserClassroomData(currUser.uid)
         .then((userClassData) => {
           setClassData({
             year: userClassData.year,
             category: userClassData.category,
             group: userClassData.group,
             classCode: userClassData.classCode,
+            authorized: userClassData.authorized,
           });
 
-          setClassroomData(userClassData.classCode, setLessonId);
+          if (userClassData.authorized === false) {
+            // userClassData.authorized could be null.
+            history.push(ROOT_ROUTE);
+          } else if (userClassData.authorized) {
+            setClassroomData(userClassData.classCode, setLessonId);
+
+            db.collection(USERS)
+              .doc(currUser.uid)
+              .update({
+                authorized: false,
+              })
+              .catch((err) => {
+                alert(err.message);
+              });
+          }
         })
         .catch((err) => {
           alert(err.message);

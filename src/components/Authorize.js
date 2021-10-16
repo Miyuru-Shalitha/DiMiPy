@@ -32,7 +32,20 @@ function Authorize() {
         .get()
         .then((doc) => {
           if (userClassCardCode === doc.data().classCardCode) {
-            history.push(CLASSROOM_ROUTE);
+            db.collection(USERS)
+              .doc(currUser.uid)
+              .set(
+                {
+                  authorized: true,
+                },
+                { merge: true }
+              )
+              .then(() => {
+                history.push(CLASSROOM_ROUTE);
+              })
+              .catch((err) => {
+                alert(err.message);
+              });
           }
         })
         .catch((err) => {
