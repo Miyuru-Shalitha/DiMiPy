@@ -50,7 +50,7 @@ function AdminPage() {
           </LoadingContainer>
         ) : (
           <Warning>
-            <WarningText>Unauthorized!</WarningText>
+            <WarningText>403 Forbidden!</WarningText>
             <h2>Redirecting to root...</h2>
           </Warning>
         )}
