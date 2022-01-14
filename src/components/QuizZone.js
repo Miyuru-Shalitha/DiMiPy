@@ -40,6 +40,12 @@ function QuizZone({ setIsLive }) {
     }
   };
 
+  const handleAsk = (e) => {
+    e.preventDefault();
+
+    alert("Ask");
+  };
+
   return (
     <div>
       <QuizZoneHeader>
@@ -50,7 +56,7 @@ function QuizZone({ setIsLive }) {
       <QuizZoneBody>
         <Chits></Chits>
 
-        <Question>
+        <Question onSubmit={handleAsk}>
           <QuestionText>
             <label>
               Question:
@@ -79,13 +85,19 @@ function QuizZone({ setIsLive }) {
                   />
                 ))}
 
-                <AddRemoveButton onClick={addAnswer}>+</AddRemoveButton>
-                <AddRemoveButton onClick={removeAnswer}>-</AddRemoveButton>
+                <AddRemoveButton type="button" onClick={addAnswer}>
+                  +
+                </AddRemoveButton>
+                <AddRemoveButton type="button" onClick={removeAnswer}>
+                  -
+                </AddRemoveButton>
               </MultiAnswers>
             ) : (
               <BinaryAnswers>BINARYANSWERS</BinaryAnswers>
             )}
           </Answers>
+
+          <button type="submit">Ask</button>
         </Question>
       </QuizZoneBody>
     </div>
@@ -140,7 +152,7 @@ const Chits = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Question = styled.div`
+const Question = styled.form`
   background-color: aqua;
   padding: 1rem;
 `;
