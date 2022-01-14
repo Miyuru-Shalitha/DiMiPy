@@ -21,6 +21,7 @@ function ClassSection({
   selectedLessonId,
   setSelectedLessonId,
   videoCount,
+  setIsLive,
 }) {
   const [classList, setClassList] = useState([]);
   const [lessonList, setLessonList] = useState([]);
@@ -35,6 +36,10 @@ function ClassSection({
       getLessonList(commonClassCode, setLessonList);
     }
   }, [selectedClassCode]);
+
+  const handleGoLive = () => {
+    setIsLive(true);
+  };
 
   const handleEditClass = () => {
     alert("Edit button functionality is comming soon! 😁");
@@ -69,6 +74,9 @@ function ClassSection({
   return (
     <Section>
       <ClassesContainer>
+        {selectedClassCode && (
+          <GoLiveButton onClick={handleGoLive}>Go Live</GoLiveButton>
+        )}
         <SectionHeading>Classes</SectionHeading>
         {selectedClassCode && (
           <>
@@ -165,6 +173,31 @@ const ClassesContainer = styled.div`
   flex-direction: column;
   background-color: #965dd4;
   position: relative;
+`;
+
+const GoLiveButton = styled.button`
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #6176ff;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const ClassListContainer = styled.div`

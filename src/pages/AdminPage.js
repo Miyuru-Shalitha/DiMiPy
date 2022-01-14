@@ -9,6 +9,7 @@ import VideosSection from "../components/VideosSection";
 import { auth, db } from "../firebase";
 import LogoCircles from "../assets/logo-circles.svg";
 import LogoRoundedText from "../assets/logo-rounded-text.svg";
+import QuizZone from "../components/QuizZone";
 
 function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -16,6 +17,7 @@ function AdminPage() {
   const [selectedLessonId, setSelectedLessonId] = useState(null);
   const [videoCount, setVideoCount] = useState(0);
   const history = useHistory("");
+  const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
     if (auth.currentUser) {
@@ -63,19 +65,28 @@ function AdminPage() {
       <TitleBar />
 
       <BodyContainer>
-        <ClassSection
-          selectedClassCode={selectedClassCode}
-          setSeletedClassCode={setSeletedClassCode}
-          selectedLessonId={selectedLessonId}
-          setSelectedLessonId={setSelectedLessonId}
-          videoCount={videoCount}
-        />
+        {!isLive ? (
+          <>
+            <ClassSection
+              selectedClassCode={selectedClassCode}
+              setSeletedClassCode={setSeletedClassCode}
+              selectedLessonId={selectedLessonId}
+              setSelectedLessonId={setSelectedLessonId}
+              videoCount={videoCount}
+              setIsLive={setIsLive}
+            />
 
-        <VideosSection
-          selectedClassCode={selectedClassCode}
-          selectedLessonId={selectedLessonId}
-          setVideoCount={setVideoCount}
-        />
+            <VideosSection
+              selectedClassCode={selectedClassCode}
+              selectedLessonId={selectedLessonId}
+              setVideoCount={setVideoCount}
+            />
+          </>
+        ) : (
+          <QuizZoneContainer>
+            <QuizZone setIsLive={setIsLive} />
+          </QuizZoneContainer>
+        )}
 
         <PrivateChatSection selectedClassCode={selectedClassCode} />
 
@@ -160,4 +171,8 @@ const BodyContainer = styled.div`
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }
+`;
+
+const QuizZoneContainer = styled.div`
+  flex: 2;
 `;
