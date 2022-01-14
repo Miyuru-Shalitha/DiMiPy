@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import MultiAnswer from "./MultiAnswer";
 
 function QuizZone({ setIsLive }) {
   const [answerType, setAnswerType] = useState("multi-answers");
-  const [multiAnswers, setMultiAnswers] = useState(["Empty"]);
+  const [multiAnswers, setMultiAnswers] = useState([]);
   const [clickedAnswer, setClickedAnswer] = useState(null);
+
+  useEffect(() => {
+    console.log(multiAnswers);
+  }, [multiAnswers]);
 
   const handleGoLive = () => {
     setIsLive(false);
@@ -15,7 +20,10 @@ function QuizZone({ setIsLive }) {
   };
 
   const addAnswer = () => {
-    setMultiAnswers((prevValue) => [...prevValue, "Empty"]);
+    setMultiAnswers((prevValue) => [
+      ...prevValue,
+      <MultiAnswer handleClickedAnswer={handleClickedAnswer} answerId={0} />,
+    ]);
   };
 
   const handleClickedAnswer = (i) => {
@@ -24,10 +32,10 @@ function QuizZone({ setIsLive }) {
 
   const removeAnswer = () => {
     if (clickedAnswer) {
-      const answersList = multiAnswers;
-      answersList.splice(clickedAnswer, 1);
+      setMultiAnswers((prevValue) =>
+        prevValue.filter((value) => value !== prevValue[clickedAnswer])
+      );
 
-      setMultiAnswers(answersList);
       setClickedAnswer(null);
     }
   };
@@ -64,15 +72,11 @@ function QuizZone({ setIsLive }) {
             {answerType === "multi-answers" ? (
               <MultiAnswers>
                 {multiAnswers.map((answer, i) => (
-                  <label key={i}>
-                    Answers {i + 1}:
-                    <AnswerTextarea
-                      onClick={() => {
-                        handleClickedAnswer(i);
-                      }}
-                      defaultValue={answer}
-                    />
-                  </label>
+                  <MultiAnswer
+                    key={i}
+                    handleClickedAnswer={handleClickedAnswer}
+                    answerId={i}
+                  />
                 ))}
 
                 <AddRemoveButton onClick={addAnswer}>+</AddRemoveButton>
@@ -146,11 +150,6 @@ const QuestionText = styled.div`
 `;
 
 const QuestionTextarea = styled.textarea`
-  width: 100%;
-  border: none;
-`;
-
-const AnswerTextarea = styled.textarea`
   width: 100%;
   border: none;
 `;
