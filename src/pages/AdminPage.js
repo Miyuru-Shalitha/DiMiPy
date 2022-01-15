@@ -84,7 +84,11 @@ function AdminPage() {
           </>
         ) : (
           <QuizZoneContainer>
-            <QuizZone setIsLive={setIsLive} />
+            <QuizZone
+              isLive={isLive}
+              setIsLive={setIsLive}
+              selectedClassCode={selectedClassCode}
+            />
           </QuizZoneContainer>
         )}
 

@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MultiAnswer from "./MultiAnswer";
+import { db } from "../firebase";
 
-function QuizZone({ setIsLive }) {
+function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const [answerType, setAnswerType] = useState("multi-answers");
+  const [questionText, setQuestionText] = useState("Empty");
   const [multiAnswers, setMultiAnswers] = useState([
     { id: 1, answer: "Empty" },
   ]);
   const [clickedAnswerId, setClickedAnswerId] = useState(null);
-  const handleGoLive = () => {
+
+  useEffect(() => {
+    db.collection("classes").doc(selectedClassCode).set(
+      {
+        isQuizZoneOn: true,
+      },
+      { merge: true }
+    );
+  }, []);
+
+  const handleGoOffline = () => {
+    db.collection("classes").doc(selectedClassCode).set(
+      {
+        isQuizZoneOn: false,
+      },
+      { merge: true }
+    );
+
     setIsLive(false);
   };
 
@@ -43,13 +62,23 @@ function QuizZone({ setIsLive }) {
   const handleAsk = (e) => {
     e.preventDefault();
 
-    alert("Ask");
+    db.collection("classes")
+      .doc(selectedClassCode)
+      .collection("quizZone")
+      .doc("questionData")
+      .set(
+        {
+          question: questionText,
+          answers: multiAnswers,
+        },
+        { merge: true }
+      );
   };
 
   return (
     <div>
       <QuizZoneHeader>
-        <QuitButton onClick={handleGoLive}>Quit</QuitButton>
+        <QuitButton onClick={handleGoOffline}>Quit</QuitButton>
         <QuizZoneHeaderText>QUIZ ZONE</QuizZoneHeaderText>
       </QuizZoneHeader>
 
@@ -60,7 +89,12 @@ function QuizZone({ setIsLive }) {
           <QuestionText>
             <label>
               Question:
-              <QuestionTextarea defaultValue="Empty" />
+              <QuestionTextarea
+                onChange={(e) => {
+                  setQuestionText(e.target.value);
+                }}
+                value={questionText}
+              />
             </label>
           </QuestionText>
 
