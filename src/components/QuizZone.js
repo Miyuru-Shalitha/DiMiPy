@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MultiAnswer from "./MultiAnswer";
 
 function QuizZone({ setIsLive }) {
   const [answerType, setAnswerType] = useState("multi-answers");
-  const [multiAnswers, setMultiAnswers] = useState([]);
-  const [clickedAnswer, setClickedAnswer] = useState(null);
-
-  useEffect(() => {
-    console.log(multiAnswers);
-  }, [multiAnswers]);
-
+  const [multiAnswers, setMultiAnswers] = useState([
+    { id: 1, answer: "Empty" },
+  ]);
+  const [clickedAnswerId, setClickedAnswerId] = useState(null);
   const handleGoLive = () => {
     setIsLive(false);
   };
@@ -22,21 +19,24 @@ function QuizZone({ setIsLive }) {
   const addAnswer = () => {
     setMultiAnswers((prevValue) => [
       ...prevValue,
-      <MultiAnswer handleClickedAnswer={handleClickedAnswer} answerId={0} />,
+      { id: generateRandomId(), answer: "Empty" },
     ]);
   };
 
+  const generateRandomId = () =>
+    (new Date().getTime() + Math.random()).toFixed(0);
+
   const handleClickedAnswer = (i) => {
-    setClickedAnswer(i);
+    setClickedAnswerId(i);
   };
 
   const removeAnswer = () => {
-    if (clickedAnswer) {
+    if (clickedAnswerId) {
       setMultiAnswers((prevValue) =>
-        prevValue.filter((value) => value !== prevValue[clickedAnswer])
+        prevValue.filter((value) => value.id !== clickedAnswerId)
       );
 
-      setClickedAnswer(null);
+      setClickedAnswerId(null);
     }
   };
 
@@ -77,11 +77,13 @@ function QuizZone({ setIsLive }) {
 
             {answerType === "multi-answers" ? (
               <MultiAnswers>
-                {multiAnswers.map((answer, i) => (
+                {multiAnswers.map(({ answer, id }, i) => (
                   <MultiAnswer
-                    key={i}
+                    key={id}
+                    id={id}
                     handleClickedAnswer={handleClickedAnswer}
-                    answerId={i}
+                    answerNumber={i + 1}
+                    answer={answer}
                   />
                 ))}
 

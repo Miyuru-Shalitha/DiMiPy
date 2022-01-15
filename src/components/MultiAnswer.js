@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-function MultiAnswer({ handleClickedAnswer, answerId }) {
-  const [answerText, setAnswerText] = useState("Empty");
+function MultiAnswer({ id, handleClickedAnswer, answerNumber, answer }) {
+  const [answerText, setAnswerText] = useState(answer);
 
   const handleAddAnswerText = (e) => {
     setAnswerText(e.target.value);
@@ -10,10 +10,10 @@ function MultiAnswer({ handleClickedAnswer, answerId }) {
 
   return (
     <label>
-      Answers {answerId + 1}:
+      Answers {answerNumber}:
       <AnswerTextarea
         onClick={() => {
-          handleClickedAnswer(answerId);
+          handleClickedAnswer(id);
         }}
         onChange={handleAddAnswerText}
         value={answerText}
