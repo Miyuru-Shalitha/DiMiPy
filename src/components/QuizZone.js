@@ -9,15 +9,18 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const [multiAnswers, setMultiAnswers] = useState([
     { id: 1, answer: "Empty" },
   ]);
+  const [multiAnswerTexts, setMultiAnswerTexts] = useState([]);
   const [clickedAnswerId, setClickedAnswerId] = useState(null);
 
   useEffect(() => {
-    db.collection("classes").doc(selectedClassCode).set(
+    const unsubscribe = db.collection("classes").doc(selectedClassCode).set(
       {
         isQuizZoneOn: true,
       },
       { merge: true }
     );
+
+    return unsubscribe;
   }, []);
 
   const handleGoOffline = () => {
@@ -62,14 +65,24 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const handleAsk = (e) => {
     e.preventDefault();
 
+    const multiAnswersElements =
+      document.getElementsByClassName("multi-answer");
+
+    const multiAnswersTextArray = [];
+
+    for (let i = 0; i < multiAnswersElements.length; i++) {
+      multiAnswersTextArray.push(multiAnswersElements[i].value);
+    }
+
     db.collection("classes")
       .doc(selectedClassCode)
       .collection("quizZone")
       .doc("questionData")
       .set(
         {
+          questionType: answerType,
           question: questionText,
-          answers: multiAnswers,
+          answers: multiAnswersTextArray,
         },
         { merge: true }
       );

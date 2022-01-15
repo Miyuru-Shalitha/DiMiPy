@@ -29,12 +29,20 @@ import { db } from "../firebase";
 //     });
 // }
 
-function setClassroomData(classId, setLessonId) {
+function setClassroomData(classId, setLessonId, setIsQuizZoneOn) {
   const classRef = db.collection(CLASSES).doc(classId);
 
   classRef.onSnapshot((docSnapshot) => {
     if (docSnapshot.exists) {
       setLessonId(docSnapshot.data().lessonId);
+
+      const isQuizZoneOn = docSnapshot.data().isQuizZoneOn;
+
+      if (isQuizZoneOn === undefined || !isQuizZoneOn) {
+        setIsQuizZoneOn(false);
+      } else {
+        setIsQuizZoneOn(true);
+      }
     }
   });
 }

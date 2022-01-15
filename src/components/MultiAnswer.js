@@ -12,6 +12,7 @@ function MultiAnswer({ id, handleClickedAnswer, answerNumber, answer }) {
     <label>
       Answers {answerNumber}:
       <AnswerTextarea
+        className="multi-answer"
         onClick={() => {
           handleClickedAnswer(id);
         }}

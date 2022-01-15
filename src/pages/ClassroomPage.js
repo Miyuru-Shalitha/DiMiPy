@@ -11,6 +11,7 @@ import StudentPrivateChatSection from "../components/StudentPrivateChatSection";
 import { useHistory } from "react-router";
 import { ROOT_ROUTE } from "../constants/routes";
 import { USERS } from "../constants/dbConsts";
+import StudentQuizZone from "../components/StudentQuizZone";
 
 function ClassroomPage() {
   const [classData, setClassData] = useState({
@@ -21,6 +22,8 @@ function ClassroomPage() {
     authorized: "",
   });
   const [lessonId, setLessonId] = useState("");
+  const [isQuizZoneOn, setIsQuizZoneOn] = useState(false);
+  const [isGotoQuizZonePressed, setIsGotoQuizZonePressed] = useState(false);
   const [lessonTitle, setLessonTitle] = useState("");
   const [lessonVideos, setLessonVideos] = useState([]);
   const [showPrivateChat, setShowPrivateChat] = useState(false);
@@ -51,8 +54,6 @@ function ClassroomPage() {
   //   }
   // }, [auth.currentUser]);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     const currUser = auth.currentUser;
 
@@ -71,7 +72,11 @@ function ClassroomPage() {
             // userClassData.authorized could be null.
             history.push(ROOT_ROUTE);
           } else if (userClassData.authorized) {
-            setClassroomData(userClassData.classCode, setLessonId);
+            setClassroomData(
+              userClassData.classCode,
+              setLessonId,
+              setIsQuizZoneOn
+            );
 
             db.collection(USERS)
               .doc(currUser.uid)
@@ -105,14 +110,28 @@ function ClassroomPage() {
     <Container>
       <TitleBar />
 
+      {isQuizZoneOn && (
+        <button
+          onClick={() => {
+            setIsGotoQuizZonePressed(!isGotoQuizZonePressed);
+          }}
+        >
+          Go to Quiz Zone
+        </button>
+      )}
+
       <BodyContainer>
-        <VideoPlayerContainer>
-          <VideoPlayer videos={lessonVideos} />
-          {/* <h1>{lessonId}</h1> */}
-          <h6 style={{ textAlign: "center" }}>
-            {classData.year} {classData.category} {classData.group}
-          </h6>
-        </VideoPlayerContainer>
+        {!isGotoQuizZonePressed ? (
+          <VideoPlayerContainer>
+            <VideoPlayer videos={lessonVideos} />
+            {/* <h1>{lessonId}</h1> */}
+            <h6 style={{ textAlign: "center" }}>
+              {classData.year} {classData.category} {classData.group}
+            </h6>
+          </VideoPlayerContainer>
+        ) : (
+          <StudentQuizZone classCode={classData.classCode} />
+        )}
 
         {showPrivateChat ? (
           <StudentPrivateChatSection
