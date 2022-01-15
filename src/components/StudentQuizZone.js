@@ -26,7 +26,10 @@ function StudentQuizZone({ classCode }) {
   return (
     <StudentQuizZoneContainer>
       {questionData?.questionType === "multi-answers" ? (
-        <StudentMultiAnswerQuestion questionData={questionData} />
+        <StudentMultiAnswerQuestion
+          classCode={classCode}
+          questionData={questionData}
+        />
       ) : (
         <StudentBinaryAnswersQuestion questionData={questionData} />
       )}

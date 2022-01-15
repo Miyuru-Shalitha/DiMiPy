@@ -11,6 +11,22 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   ]);
   const [multiAnswerTexts, setMultiAnswerTexts] = useState([]);
   const [clickedAnswerId, setClickedAnswerId] = useState(null);
+  const [answersCount, setAnswersCount] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("classes")
+      .doc(selectedClassCode)
+      .collection("quizZone")
+      .doc("questionData")
+      .onSnapshot((docSnapshot) => {
+        if (docSnapshot.exists) {
+          setAnswersCount(docSnapshot.data().answersCount);
+        }
+      });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const unsubscribe = db.collection("classes").doc(selectedClassCode).set(
@@ -149,6 +165,8 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
           <button type="submit">Ask</button>
         </Question>
       </QuizZoneBody>
+
+      <h2>{answersCount}</h2>
     </div>
   );
 }
