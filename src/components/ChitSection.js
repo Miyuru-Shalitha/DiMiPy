@@ -99,7 +99,7 @@ const Container = styled.div`
   @media only screen and (max-width: 37.5em) {
     /* 600px */
     /* height: 56vh; */
-    flex: 0 0 60vh;
+    flex: 0 0 50vh;
   }
 `;
 
@@ -115,7 +115,7 @@ const ChatContainer = styled.div`
   @media only screen and (max-width: 37.5em) {
     /* 600px */
     /* height: 48vh; */
-    flex: 0 0 43vh;
+    flex: 0 0 37vh;
   }
 `;
 
