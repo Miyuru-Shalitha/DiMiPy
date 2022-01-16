@@ -92,9 +92,8 @@ function AdminPage() {
           </QuizZoneContainer>
         )}
 
-        <PrivateChatSection selectedClassCode={selectedClassCode} />
-
         <PublicChatSection selectedClassCode={selectedClassCode} />
+        <PrivateChatSection selectedClassCode={selectedClassCode} />
       </BodyContainer>
     </Container>
   );

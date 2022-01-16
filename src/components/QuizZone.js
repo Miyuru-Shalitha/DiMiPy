@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MultiAnswer from "./MultiAnswer";
 import { db } from "../firebase";
+import Graph from "./Graph";
 
 function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const [answerType, setAnswerType] = useState("multi-answers");
@@ -112,7 +113,9 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
       </QuizZoneHeader>
 
       <QuizZoneBody>
-        <Chits></Chits>
+        <GraphContainer>
+          <Graph data={answersCount} />
+        </GraphContainer>
 
         <Question onSubmit={handleAsk}>
           <QuestionText>
@@ -213,8 +216,9 @@ const QuizZoneBody = styled.div`
   padding: 1rem;
 `;
 
-const Chits = styled.div`
-  height: 30vh;
+const GraphContainer = styled.div`
+  /* height: 30vh; */
+  padding: 1rem;
   background-color: aqua;
   margin-bottom: 1rem;
 `;

@@ -29,7 +29,7 @@ function StudentMultiAnswerQuestion({ classCode, questionData }) {
               { merge: true }
             )
             .then(() => {
-              alert("Answer submitted");
+              // alert("Answer submitted");
             })
             .catch((err) => {
               alert(err.message);
@@ -53,7 +53,7 @@ function StudentMultiAnswerQuestion({ classCode, questionData }) {
               { merge: true }
             )
             .then(() => {
-              alert("Answer submitted");
+              // alert("Answer submitted");
             })
             .catch((err) => {
               alert(err.message);
