@@ -132,14 +132,14 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
     } else if (answerTypeInt === 1) {
       questionDataRef.set({
         questionType: answerType,
-        question: questionText,
-        answers: ["Understood", "Did not understand"],
+        question: "තේරුනාද​?",
+        answers: ["තේරුනා", "තේරුනේ නෑ"],
       });
     } else if (answerTypeInt === 2) {
       questionDataRef.set({
         questionType: answerType,
         question: questionText,
-        answers: ["Yes", "No"],
+        answers: ["ඔව්", "නෑ"],
       });
     }
   };
@@ -162,7 +162,7 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
         console.log(err.message);
       });
 
-    quizZoneRef.doc("questionData").set({
+    quizZoneRef.doc("තේරුනාද​?").set({
       questionType: null,
       question: null,
       answers: [],
