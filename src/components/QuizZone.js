@@ -147,15 +147,26 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const clearQuestion = () => {
     setAsked(false);
 
-    db.collection("classes")
+    const quizZoneRef = db
+      .collection("classes")
       .doc(selectedClassCode)
-      .collection("quizZone")
-      .doc("questionData")
-      .set({
-        questionType: null,
-        question: null,
-        answers: [],
+      .collection("quizZone");
+
+    quizZoneRef
+      .doc("answeredUsers")
+      .delete()
+      .then(() => {
+        console.log("Reset answered user ids");
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
+
+    quizZoneRef.doc("questionData").set({
+      questionType: null,
+      question: null,
+      answers: [],
+    });
   };
 
   const handleUnderstandBtn = () => {

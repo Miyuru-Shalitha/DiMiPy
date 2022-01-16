@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 
 function StudentMultiAnswerQuestion({
   classCode,
   questionData,
   setQuestionData,
 }) {
+  useEffect(() => {
+    db.collection("classes")
+      .doc(classCode)
+      .collection("quizZone")
+      .doc("answeredUsers")
+      .get()
+      .then((data) => {
+        if (data.exists) {
+          if (data.data().ids.includes(auth.currentUser.uid)) {
+            setQuestionData(null);
+          }
+        }
+      });
+  }, []);
+
   const generateRandomId = () =>
     (new Date().getTime() + Math.random()).toFixed(0);
 
@@ -14,10 +29,10 @@ function StudentMultiAnswerQuestion({
     const questionDataRef = db
       .collection("classes")
       .doc(classCode)
-      .collection("quizZone")
-      .doc("questionData");
+      .collection("quizZone");
 
     questionDataRef
+      .doc("questionData")
       .get()
       .then((data) => {
         const answersCount = data.data().answersCount;
@@ -26,6 +41,7 @@ function StudentMultiAnswerQuestion({
           answersCount[answerId]++;
 
           questionDataRef
+            .doc("questionData")
             .set(
               {
                 answersCount: answersCount,
@@ -33,8 +49,29 @@ function StudentMultiAnswerQuestion({
               { merge: true }
             )
             .then(() => {
-              setQuestionData(null);
-              console.log("Answer submitted");
+              questionDataRef
+                .doc("answeredUsers")
+                .get()
+                .then((data) => {
+                  const answeredUsersData = data.data();
+                  let answeredUserIds = [];
+
+                  if (answeredUsersData === undefined) {
+                    answeredUserIds = [];
+                  } else {
+                    answeredUserIds = answeredUsersData.ids;
+                  }
+
+                  answeredUserIds.push(auth.currentUser.uid);
+
+                  questionDataRef
+                    .doc("answeredUsers")
+                    .set({ ids: answeredUserIds })
+                    .then(() => {
+                      setQuestionData(null);
+                      console.log("Answer submitted");
+                    });
+                });
             })
             .catch((err) => {
               alert(err.message);
@@ -51,6 +88,7 @@ function StudentMultiAnswerQuestion({
           }
 
           questionDataRef
+            .doc("questionData")
             .set(
               {
                 answersCount: tempAnswersCount,
@@ -58,8 +96,29 @@ function StudentMultiAnswerQuestion({
               { merge: true }
             )
             .then(() => {
-              console.log("Answer submitted");
-              setQuestionData(null);
+              questionDataRef
+                .doc("answeredUsers")
+                .get()
+                .then((data) => {
+                  const answeredUsersData = data.data();
+                  let answeredUserIds = [];
+
+                  if (answeredUsersData === undefined) {
+                    answeredUserIds = [];
+                  } else {
+                    answeredUserIds = answeredUsersData.ids;
+                  }
+
+                  answeredUserIds.push(auth.currentUser.uid);
+
+                  questionDataRef
+                    .doc("answeredUsers")
+                    .set({ ids: answeredUserIds })
+                    .then(() => {
+                      setQuestionData(null);
+                      console.log("Answer submitted");
+                    });
+                });
             })
             .catch((err) => {
               alert(err.message);
