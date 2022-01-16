@@ -57,6 +57,8 @@ export default StudentQuizZone;
 
 const StudentQuizZoneContainer = styled.div`
   flex: 3;
+  /* max-height: 30vh; */
+  overflow-y: auto;
 `;
 
 const LoadingContainer = styled.div`
