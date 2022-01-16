@@ -14,6 +14,7 @@ import { auth } from "./firebase";
 import ClassroomPage from "./pages/ClassroomPage";
 import AdminPage from "./pages/AdminPage";
 import ProfilePage from "./pages/ProfilePage";
+import StaticGraph from "./components/StaticGraph";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,6 +56,10 @@ function App() {
 
         <Route path={ADMIN_ROUTE}>
           <AdminPage />
+        </Route>
+
+        <Route path="/results/:resultCode">
+          <StaticGraph />
         </Route>
       </Switch>
     </Router>

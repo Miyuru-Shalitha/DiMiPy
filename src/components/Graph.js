@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-function Graph({ data }) {
+function Graph({ data, graphSize }) {
   const [sum, setSum] = useState(null);
+  const [size, setSize] = useState(null);
+
+  useEffect(() => {
+    if (graphSize === "large") {
+      setSize(["5rem", "3rem"]);
+    } else if (graphSize === "medium") {
+      setSize(["3rem", "1rem"]);
+    }
+  }, [graphSize]);
 
   useEffect(() => {
     setSum(data?.reduce((a, b) => a + b, 0));
@@ -23,7 +32,6 @@ function Graph({ data }) {
     rgb[0] = Math.round(255 - calcPercentage(val) * 2.55);
     rgb[1] = Math.round(calcPercentage(val) * 2.55);
 
-    console.log(rgb);
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
   };
 
@@ -35,9 +43,10 @@ function Graph({ data }) {
           style={{
             width: `${calcPercentage(val)}%`,
             backgroundColor: calcColor(val),
+            height: size[0],
           }}
         >
-          <GraphText>
+          <GraphText style={{ fontSize: size[1] }}>
             Answer {i + 1}: ({val} / {sum})
           </GraphText>
         </GraphBar>
@@ -57,6 +66,7 @@ const GraphBar = styled.div`
   /* background-color: #ffff00; */
   height: 3rem;
   position: relative;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 2, 0.5);
   transition: all 0.5s;
 
   &:not(:last-child) {
@@ -69,5 +79,5 @@ const GraphText = styled.p`
   top: 50%;
   left: 1rem;
   transform: translateY(-50%);
-  min-width: 10rem;
+  min-width: 75rem;
 `;

@@ -129,13 +129,13 @@ function ClassroomPage() {
     <Container>
       <TitleBar />
 
-      {isQuizZoneOn && (
+      {isQuizZoneOn && !isGotoQuizZonePressed && (
         <GotoQuizZoneBtn
           onClick={() => {
             setIsGotoQuizZonePressed(!isGotoQuizZonePressed);
           }}
         >
-          {isGotoQuizZonePressed ? "Quit" : "Go to Quiz Zone"}
+          "Go to Quiz Zone"
         </GotoQuizZoneBtn>
       )}
 

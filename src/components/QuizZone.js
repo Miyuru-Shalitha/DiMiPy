@@ -168,6 +168,17 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
     askQuestion(2);
   };
 
+  const handleOpenResultsInNewTab = () => {
+    const newWindow = window.open(
+      `/results/${answersCount}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
   return (
     <div>
       <QuizZoneHeader>
@@ -177,7 +188,8 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
 
       <QuizZoneBody>
         <GraphContainer>
-          <Graph data={answersCount} />
+          <Graph data={answersCount} graphSize="medium" />
+          <button onClick={handleOpenResultsInNewTab}>Open</button>
         </GraphContainer>
 
         <Question onSubmit={handleSubmit}>
