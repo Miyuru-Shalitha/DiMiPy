@@ -10,6 +10,8 @@ import { auth, db } from "../firebase";
 import LogoCircles from "../assets/logo-circles.svg";
 import LogoRoundedText from "../assets/logo-rounded-text.svg";
 import QuizZone from "../components/QuizZone";
+import ChitSection from "../components/ChitSection";
+import AdminChitSection from "../components/AdminChitSection";
 
 function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -92,7 +94,11 @@ function AdminPage() {
           </QuizZoneContainer>
         )}
 
-        <PublicChatSection selectedClassCode={selectedClassCode} />
+        {isLive ? (
+          <AdminChitSection selectedClassCode={selectedClassCode} />
+        ) : (
+          <PublicChatSection selectedClassCode={selectedClassCode} />
+        )}
         <PrivateChatSection selectedClassCode={selectedClassCode} />
       </BodyContainer>
     </Container>

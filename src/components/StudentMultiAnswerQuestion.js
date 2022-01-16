@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
 
-function StudentMultiAnswerQuestion({ classCode, questionData }) {
+function StudentMultiAnswerQuestion({
+  classCode,
+  questionData,
+  setQuestionData,
+}) {
   const generateRandomId = () =>
     (new Date().getTime() + Math.random()).toFixed(0);
 
@@ -29,7 +33,8 @@ function StudentMultiAnswerQuestion({ classCode, questionData }) {
               { merge: true }
             )
             .then(() => {
-              // alert("Answer submitted");
+              setQuestionData(null);
+              console.log("Answer submitted");
             })
             .catch((err) => {
               alert(err.message);
@@ -53,7 +58,8 @@ function StudentMultiAnswerQuestion({ classCode, questionData }) {
               { merge: true }
             )
             .then(() => {
-              // alert("Answer submitted");
+              console.log("Answer submitted");
+              setQuestionData(null);
             })
             .catch((err) => {
               alert(err.message);

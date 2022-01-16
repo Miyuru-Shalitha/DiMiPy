@@ -12,6 +12,7 @@ import { useHistory } from "react-router";
 import { ROOT_ROUTE } from "../constants/routes";
 import { USERS } from "../constants/dbConsts";
 import StudentQuizZone from "../components/StudentQuizZone";
+import ChitSection from "../components/ChitSection";
 
 function ClassroomPage() {
   const [classData, setClassData] = useState({
@@ -106,6 +107,24 @@ function ClassroomPage() {
     }
   }, [lessonId]);
 
+  const showChatSection = () => {
+    if (isGotoQuizZonePressed) {
+      return <ChitSection classCode={classData.classCode} />;
+    }
+
+    return showPrivateChat ? (
+      <StudentPrivateChatSection
+        classData={classData}
+        setShowPrivateChat={setShowPrivateChat}
+      />
+    ) : (
+      <ChatSection
+        classData={classData}
+        setShowPrivateChat={setShowPrivateChat}
+      />
+    );
+  };
+
   return (
     <Container>
       <TitleBar />
@@ -133,17 +152,7 @@ function ClassroomPage() {
           <StudentQuizZone classCode={classData.classCode} />
         )}
 
-        {showPrivateChat ? (
-          <StudentPrivateChatSection
-            classData={classData}
-            setShowPrivateChat={setShowPrivateChat}
-          />
-        ) : (
-          <ChatSection
-            classData={classData}
-            setShowPrivateChat={setShowPrivateChat}
-          />
-        )}
+        {showChatSection()}
       </BodyContainer>
     </Container>
   );

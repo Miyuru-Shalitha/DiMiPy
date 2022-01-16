@@ -46,6 +46,7 @@ function StudentQuizZone({ classCode }) {
         <StudentMultiAnswerQuestion
           classCode={classCode}
           questionData={questionData}
+          setQuestionData={setQuestionData}
         />
       )}
     </StudentQuizZoneContainer>
