@@ -162,7 +162,7 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
         console.log(err.message);
       });
 
-    quizZoneRef.doc("තේරුනාද​?").set({
+    quizZoneRef.doc("questionData").set({
       questionType: null,
       question: null,
       answers: [],
@@ -170,7 +170,7 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   };
 
   const handleUnderstandBtn = () => {
-    setQuestionText("Understand?");
+    setQuestionText("තේරුනාද​?");
 
     askQuestion(1);
   };
