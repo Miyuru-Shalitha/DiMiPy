@@ -20,10 +20,10 @@ function Graph({ data }) {
   const calcColor = (val) => {
     let rgb = [0, 0, 0];
 
-    rgb[0] = (255 - calcPercentage(val)) * 2.55;
-    rgb[1] = calcPercentage(val) * 2.55;
-    // rgb[2] = (255 / 2 - calcPercentage(val)) * 2.55;
+    rgb[0] = Math.round(255 - calcPercentage(val) * 2.55);
+    rgb[1] = Math.round(calcPercentage(val) * 2.55);
 
+    console.log(rgb);
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
   };
 
@@ -54,7 +54,7 @@ const Container = styled.div`
 `;
 
 const GraphBar = styled.div`
-  background-color: #ffff00;
+  /* background-color: #ffff00; */
   height: 3rem;
   position: relative;
   transition: all 0.5s;

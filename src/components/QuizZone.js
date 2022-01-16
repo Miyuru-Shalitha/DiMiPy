@@ -13,6 +13,9 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
   const [multiAnswerTexts, setMultiAnswerTexts] = useState([]);
   const [clickedAnswerId, setClickedAnswerId] = useState(null);
   const [answersCount, setAnswersCount] = useState(null);
+  const [asked, setAsked] = useState(false);
+  const [showBinaryAskAnswersBtns, setShowBinaryAskAnswersBtns] =
+    useState(false);
 
   useEffect(() => {
     const unsubscribe = db
@@ -53,6 +56,12 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
 
   const handleSelect = (e) => {
     setAnswerType(e.target.value);
+
+    if (e.target.value === "multi-answers") {
+      setShowBinaryAskAnswersBtns(false);
+    } else if (e.target.value === "binary") {
+      setShowBinaryAskAnswersBtns(true);
+    }
   };
 
   const addAnswer = () => {
@@ -79,23 +88,40 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
     }
   };
 
-  const handleAsk = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const multiAnswersElements =
-      document.getElementsByClassName("multi-answer");
-
-    const multiAnswersTextArray = [];
-
-    for (let i = 0; i < multiAnswersElements.length; i++) {
-      multiAnswersTextArray.push(multiAnswersElements[i].value);
+    if (!asked) {
+      askQuestion(0);
+    } else {
+      clearQuestion();
     }
+  };
 
-    db.collection("classes")
+  const askQuestion = (answerTypeInt) => {
+    // 0 -> multi-answers
+    // 1 -> understand
+    // 2 -> Yes/No
+
+    setAsked(true);
+
+    const questionDataRef = db
+      .collection("classes")
       .doc(selectedClassCode)
       .collection("quizZone")
-      .doc("questionData")
-      .set(
+      .doc("questionData");
+
+    if (answerTypeInt === 0) {
+      const multiAnswersElements =
+        document.getElementsByClassName("multi-answer");
+
+      const multiAnswersTextArray = [];
+
+      for (let i = 0; i < multiAnswersElements.length; i++) {
+        multiAnswersTextArray.push(multiAnswersElements[i].value);
+      }
+
+      questionDataRef.set(
         {
           questionType: answerType,
           question: questionText,
@@ -103,6 +129,43 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
         },
         { merge: true }
       );
+    } else if (answerTypeInt === 1) {
+      questionDataRef.set({
+        questionType: answerType,
+        question: questionText,
+        answers: ["Understood", "Did not understand"],
+      });
+    } else if (answerTypeInt === 2) {
+      questionDataRef.set({
+        questionType: answerType,
+        question: questionText,
+        answers: ["Yes", "No"],
+      });
+    }
+  };
+
+  const clearQuestion = () => {
+    setAsked(false);
+
+    db.collection("classes")
+      .doc(selectedClassCode)
+      .collection("quizZone")
+      .doc("questionData")
+      .set({
+        questionType: null,
+        question: null,
+        answers: [],
+      });
+  };
+
+  const handleUnderstandBtn = () => {
+    setQuestionText("Understand?");
+
+    askQuestion(1);
+  };
+
+  const handleYesNoBtn = () => {
+    askQuestion(2);
   };
 
   return (
@@ -117,7 +180,7 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
           <Graph data={answersCount} />
         </GraphContainer>
 
-        <Question onSubmit={handleAsk}>
+        <Question onSubmit={handleSubmit}>
           <QuestionText>
             <label>
               Question:
@@ -161,11 +224,24 @@ function QuizZone({ isLive, setIsLive, selectedClassCode }) {
                 </AddRemoveButton>
               </MultiAnswers>
             ) : (
-              <BinaryAnswers>BINARYANSWERS</BinaryAnswers>
+              <BinaryAnswers>
+                {!asked && (
+                  <>
+                    <button type="button" onClick={handleUnderstandBtn}>
+                      Understand?
+                    </button>
+                    <button type="button" onClick={handleYesNoBtn}>
+                      Yes/No
+                    </button>
+                  </>
+                )}
+              </BinaryAnswers>
             )}
           </Answers>
 
-          <button type="submit">Ask</button>
+          {(answerType === "multi-answers" || asked) && (
+            <button type="submit">{asked ? "Clear" : "Ask"}</button>
+          )}
         </Question>
       </QuizZoneBody>
 

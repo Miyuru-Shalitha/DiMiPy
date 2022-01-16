@@ -111,13 +111,13 @@ function ClassroomPage() {
       <TitleBar />
 
       {isQuizZoneOn && (
-        <button
+        <GotoQuizZoneBtn
           onClick={() => {
             setIsGotoQuizZonePressed(!isGotoQuizZonePressed);
           }}
         >
-          Go to Quiz Zone
-        </button>
+          {isGotoQuizZonePressed ? "Quit" : "Go to Quiz Zone"}
+        </GotoQuizZoneBtn>
       )}
 
       <BodyContainer>
@@ -181,4 +181,31 @@ const VideoPlayerContainer = styled.div`
 
 const ChatSectionContainer = styled.div`
   flex: 1;
+`;
+
+const GotoQuizZoneBtn = styled.button`
+  position: absolute;
+  /* top: 1rem;
+  left: 1rem; */
+  z-index: 1000;
+
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #6176ff;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+  }
 `;
