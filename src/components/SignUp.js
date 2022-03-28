@@ -13,9 +13,9 @@ const REVISION = "Revision";
 const YEAR = "Select Year";
 const SELECTGROUP = "Select Group";
 
-const DEFAULT_THEORY_YEAR = "2021";
+const DEFAULT_THEORY_YEAR = "2022";
 const DEFAULT_THEORY_GROUP = "All Island";
-const DEFAULT_REVISION_YEAR = "2021";
+const DEFAULT_REVISION_YEAR = "2022";
 const DEFAULT_REVISION_GROUP = "All Island";
 
 function SignUp() {
@@ -112,7 +112,7 @@ function SignUp() {
           <RadioButtonsGroup
             labelName={YEAR}
             radioItems={{
-              itemTitles: ["2021", "2022", "2023"],
+              itemTitles: ["2022", "2023", "2024"],
               func: handleSelectedYear,
             }}
           />
@@ -131,7 +131,7 @@ function SignUp() {
           <RadioButtonsGroup
             labelName={YEAR}
             radioItems={{
-              itemTitles: ["2021"],
+              itemTitles: ["2022"],
               func: handleSelectedYear,
             }}
           />
