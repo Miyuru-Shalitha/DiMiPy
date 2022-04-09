@@ -12,6 +12,7 @@ import LogoRoundedText from "../assets/logo-rounded-text.svg";
 import QuizZone from "../components/QuizZone";
 import ChitSection from "../components/ChitSection";
 import AdminChitSection from "../components/AdminChitSection";
+import VideoSection2 from "../components/VideoSection2";
 
 function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -78,7 +79,12 @@ function AdminPage() {
               setIsLive={setIsLive}
             />
 
-            <VideosSection
+            {/* <VideosSection
+              selectedClassCode={selectedClassCode}
+              selectedLessonId={selectedLessonId}
+              setVideoCount={setVideoCount}
+            /> */}
+            <VideoSection2
               selectedClassCode={selectedClassCode}
               selectedLessonId={selectedLessonId}
               setVideoCount={setVideoCount}

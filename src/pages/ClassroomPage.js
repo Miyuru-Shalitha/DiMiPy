@@ -13,6 +13,7 @@ import { ROOT_ROUTE } from "../constants/routes";
 import { USERS } from "../constants/dbConsts";
 import StudentQuizZone from "../components/StudentQuizZone";
 import ChitSection from "../components/ChitSection";
+import YoutubeVideoPlayer from "../components/YoutubeVideoPlayer";
 
 function ClassroomPage() {
   const [classData, setClassData] = useState({
@@ -142,7 +143,10 @@ function ClassroomPage() {
       <BodyContainer>
         {!isGotoQuizZonePressed ? (
           <VideoPlayerContainer>
-            <VideoPlayer videos={lessonVideos} />
+            {/* <VideoPlayer videos={lessonVideos} /> */}
+
+            <YoutubeVideoPlayer videos={lessonVideos} />
+
             {/* <h1>{lessonId}</h1> */}
             <h6 style={{ textAlign: "center" }}>
               {classData.year} {classData.category} {classData.group}
