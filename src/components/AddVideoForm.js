@@ -15,8 +15,10 @@ function AddVideoForm({ selectedClassCode, selectedLessonId, setVideoList }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const commonClassCode = filterCommonClassCode(selectedClassCode);
+
     db.collection(LESSON_SERIES)
-      .doc(filterCommonClassCode(selectedClassCode))
+      .doc(commonClassCode)
       .collection(LESSONS)
       .doc(selectedLessonId)
       .collection(VIDEOS)
@@ -28,6 +30,8 @@ function AddVideoForm({ selectedClassCode, selectedLessonId, setVideoList }) {
       .then(() => {
         setVideoTitle("");
         setYoutubeURL("");
+
+        handleVideoSectionData(commonClassCode, selectedLessonId, setVideoList);
       })
       .catch((err) => {
         alert(err.message);

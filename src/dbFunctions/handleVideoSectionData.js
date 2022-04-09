@@ -61,30 +61,41 @@ function deleteVideo(
     .doc(videoId);
 
   videoDocRef
-    .get()
-    .then((doc) => {
-      const videoUrl = doc.data().videoUrl;
-      const videoRef = storage.refFromURL(videoUrl);
+    .delete()
+    .then(() => {
+      handleVideoSectionData(commonClassCode, lessonId, setVideoList);
 
-      // Delete video from storage.
-      videoRef.delete().then(() => {
-        // Delete video data from database.
-        videoDocRef
-          .delete()
-          .then(() => {
-            // Get videos again.
-            handleVideoSectionData(commonClassCode, lessonId, setVideoList);
-
-            setSelectedVideoId(null);
-          })
-          .catch((err) => {
-            alert(err.message);
-          });
-      });
+      setSelectedVideoId(null);
     })
     .catch((err) => {
       alert(err.message);
     });
+
+  // videoDocRef
+  //   .get()
+  //   .then((doc) => {
+  //     // const videoUrl = doc.data().videoUrl;
+  //     // const videoRef = storage.refFromURL(videoUrl);
+
+  //     // Delete video from storage.
+  //     // videoRef.delete().then(() => {
+  //     // Delete video data from database.
+  //     videoDocRef
+  //       .delete()
+  //       .then(() => {
+  //         // Get videos again.
+  //         handleVideoSectionData(commonClassCode, lessonId, setVideoList);
+
+  //         setSelectedVideoId(null);
+  //       })
+  //       .catch((err) => {
+  //         alert(err.message);
+  //         // });
+  //       });
+  //   })
+  // .catch((err) => {
+  //   alert(err.message);
+  // });
 }
 
 export { handleVideoSectionData, deleteVideo };

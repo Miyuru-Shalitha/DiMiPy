@@ -33,7 +33,7 @@ function VideosSection2({
   }, [selectedClassCode, selectedLessonId]);
 
   const handleEditLesson = () => {
-    alert("Edit button functionality is coming soon! 😁");
+    alert("😁");
   };
 
   const handleDeleteLesson = () => {
