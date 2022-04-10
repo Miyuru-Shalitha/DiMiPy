@@ -31,8 +31,7 @@ function handleVideoSectionData(
           return {
             videoId: video.id,
             videoTitle: video.data().videoTitle,
-            numOfQuestions: video.data().numberOfQuestions,
-            videoUrl: video.data().videoUrl,
+            videoUrl: video.data().numOfQuestions,
           };
         }
       });

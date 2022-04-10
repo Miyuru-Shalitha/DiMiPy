@@ -5,12 +5,12 @@ import ClassSection from "../components/ClassSection";
 import PrivateChatSection from "../components/PrivateChatSection";
 import PublicChatSection from "../components/PublicChatSection";
 import TitleBar from "../components/TitleBar";
-import VideosSection from "../components/VideosSection";
+// import VideosSection from "../components/VideosSection";
 import { auth, db } from "../firebase";
 import LogoCircles from "../assets/logo-circles.svg";
 import LogoRoundedText from "../assets/logo-rounded-text.svg";
 import QuizZone from "../components/QuizZone";
-import ChitSection from "../components/ChitSection";
+// import ChitSection from "../components/ChitSection";
 import AdminChitSection from "../components/AdminChitSection";
 import VideoSection2 from "../components/VideoSection2";
 

@@ -91,7 +91,7 @@ function VideosSection2({
                     key={video.videoId}
                     videoId={video.videoId}
                     videoTitle={video.videoTitle}
-                    youtubeURL={video.numOfQuestions} // "numOfQuestions" should be changed to "youtubeURL" in firebase database
+                    youtubeURL={video.videoUrl} // "numOfQuestions" should be changed to "youtubeURL" in firebase database
                     videoUrl={video.videoUrl}
                     setPreview={setPreview}
                     selectedVideoId={selectedVideoId}
@@ -131,7 +131,15 @@ function VideosSection2({
       <VideoPreview>
         <SectionHeading>Video Preview</SectionHeading>
 
-        <ReactPlayer url={preview} width="1280" height="1024" controls={true} />
+        <YoutubePlayerIframe
+          // width="560"
+          // height="315"
+          src={preview}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></YoutubePlayerIframe>
       </VideoPreview>
     </Section>
   );
@@ -153,6 +161,11 @@ const SectionHeading = styled.h2`
   padding: 0.5rem;
   text-transform: uppercase;
   letter-spacing: calc(1rem / 16);
+`;
+
+const YoutubePlayerIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
 `;
 
 const VideosContainer = styled.div`
@@ -212,30 +225,30 @@ const VideoListContainer = styled.div`
   flex: 1;
 `;
 
-const IntervalForm = styled.form`
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem;
+// const IntervalForm = styled.form`
+//   display: flex;
+//   justify-content: space-around;
+//   padding: 0.5rem;
 
-  & > button {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: #f2ff8f;
-    cursor: pointer;
-    transition: all 0.2s;
+//   & > button {
+//     padding: 0.5rem;
+//     border: none;
+//     border-radius: 0.5rem;
+//     background-color: #f2ff8f;
+//     cursor: pointer;
+//     transition: all 0.2s;
 
-    &:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
-    }
+//     &:hover {
+//       transform: translateY(-2px) scale(1.03);
+//       box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+//     }
 
-    &:active {
-      transform: translateY(-1px);
-      box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
-    }
-  }
-`;
+//     &:active {
+//       transform: translateY(-1px);
+//       box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.6);
+//     }
+//   }
+// `;
 
 const VideoList = styled.div`
   height: 42vh;
